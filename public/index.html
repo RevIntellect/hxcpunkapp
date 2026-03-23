@@ -1314,13 +1314,15 @@ function initMap(){
   punkMap = L.map('punk-map',{
     center:[39.8,-98.5],
     zoom:4,
+    minZoom:2,
+    maxZoom:7,
     zoomControl:true,
     attributionControl:false
   });
-  
+
   // Dark tile layer
   L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{
-    maxZoom:18,
+    maxZoom:7,
     subdomains:'abcd'
   }).addTo(punkMap);
   
