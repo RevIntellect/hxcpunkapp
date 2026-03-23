@@ -330,7 +330,7 @@ pointer-events:none;z-index:1}
 <div class="sub">Hardcore Punk 1980 &ndash; 1999</div>
 <div class="tagline">An interactive field guide to two decades of fury, DIY, and the underground</div>
 <div class="hero-stats-row">
-<div class="hero-stat"><span class="hero-stat-num">55</span><span class="hero-stat-label">Bands</span></div>
+<div class="hero-stat"><span class="hero-stat-num">69</span><span class="hero-stat-label">Bands</span></div>
 <div class="hero-stat"><span class="hero-stat-num">8</span><span class="hero-stat-label">Scenes</span></div>
 <div class="hero-stat"><span class="hero-stat-num">26</span><span class="hero-stat-label">Albums</span></div>
 <div class="hero-stat"><span class="hero-stat-num">8</span><span class="hero-stat-label">Subgenres</span></div>
@@ -472,7 +472,7 @@ const timelineData = [
 const scenesData = [
 {city:"Los Angeles / SoCal",cls:"la",era:"Epicenter: 1978-1986",desc:"The birthplace. Suburban teens channeled Reaganite frustration into the fastest, most aggressive music anyone had heard. Backyard parties, the Masque, and later the Olympic Auditorium became flashpoints. SST Records became the genre's most important early label.",bands:["Black Flag","Circle Jerks","Suicidal Tendencies","Descendents","Bad Religion","Agent Orange","The Germs","TSOL","Adolescents","Pennywise"],label:"SST Records, Epitaph, BYO"},
 {city:"Washington, D.C.",cls:"dc",era:"Epicenter: 1980-1990",desc:"Perhaps the most ideologically significant scene. Minor Threat birthed straight edge. Dischord Records became a model of ethical independence. Revolution Summer in 1985 challenged the movement's own excesses and gave rise to post-hardcore and emo.",bands:["Minor Threat","Bad Brains","Fugazi","Rites of Spring","Government Issue","Void","Dag Nasty","Embrace","Nation of Ulysses","Scream"],label:"Dischord Records"},
-{city:"New York City",cls:"ny",era:"Epicenter: 1982-1992",desc:"NYHC was harder, meaner, more street-level. CBGB matinees, the A7 club, and later ABC No Rio hosted a scene defined by crew loyalty, gang vocals, and eventually a deep crossover with metal. The youth crew movement of the late '80s was centered here.",bands:["Agnostic Front","Cro-Mags","Gorilla Biscuits","Youth of Today","Sick of It All","Madball","Bold","Murphy's Law","Warzone","Token Entry"],label:"Revelation Records, Victory Records"},
+{city:"New York City",cls:"ny",era:"Epicenter: 1982-1992",desc:"NYHC was harder, meaner, more street-level. CBGB matinees, the A7 club, and later ABC No Rio hosted a scene defined by crew loyalty, gang vocals, and eventually a deep crossover with metal. The youth crew movement of the late '80s was centered here.",bands:["Agnostic Front","Cro-Mags","Gorilla Biscuits","Youth of Today","Sick of It All","Madball","Bold","Murphy's Law","Warzone","Token Entry","Reagan Youth","Heart Attack","Urban Waste","Kraut","The Mob","Nihilistics","False Prophets","Antidote","Leeway","Nausea","Cause for Alarm","The Abused","Major Conflict"],label:"Revelation Records, Victory Records"},
 {city:"Boston",cls:"boston",era:"Epicenter: 1981-1988 / 1998-2003",desc:"Boston took straight edge and ran with it harder than anyone. The early scene was militant, insular, and incredibly unified. A second wave in the late '90s produced some of the most innovative bands in modern hardcore history.",bands:["SS Decontrol","DYS","Gang Green","Slapshot","Converge","American Nightmare","Bane","Cave In","The Hope Conspiracy","Siege"],label:"Taang! Records, Deathwish Inc."},
 {city:"San Francisco / NorCal",cls:"sf",era:"Epicenter: 1978-1986",desc:"Dead Kennedys put SF on the map with razor-sharp political satire. The Not So Quiet on the Western Front compilation showcased the broader NorCal scene. Flipper slowed things down with sludgy, bass-driven noise. Maximumrocknroll zine became a global punk institution.",bands:["Dead Kennedys","Flipper","MDC","Code of Honor","Crucifix","Spazz","Neurosis"],label:"Alternative Tentacles, Lookout!"},
 {city:"Cleveland / NE Ohio",cls:"cleveland",era:"Epicenter: 1981-1984 / 1988-1996",desc:"Built on the proto-punk legacy of the Pagans, Dead Boys, and Pere Ubu, Cleveland's hardcore scene was scrappy and insular in the early '80s, with The Guns and The Dark pioneering all-ages shows and a regional compilation (The New Hope, 1983). The second wave in the late '80s and '90s produced Integrity and Ringworm, who forged a uniquely dark, metallic style sometimes called \"holy terror\" or \"negative hardcore\" that became one of metalcore's most important blueprints. The Rust Belt's industrial decay fed directly into the music's apocalyptic tone.",bands:["Integrity","Ringworm","The Dark","The Guns","Confront","Face Value","9 Shocks Terror","Outface","Zero Defex","In Cold Blood"],label:"Dark Empire, Victory Records, Incision"},
@@ -536,7 +536,21 @@ const bandRelated = {
 "Murphy\'s Law":["Agnostic Front","Cro-Mags","Warzone","Leeway","Carnivore"],
 "Warzone":["Agnostic Front","Madball","Sick of It All","Youth of Today","Cro-Mags"],
 "Napalm Death":["Discharge","Carcass","Bolt Thrower","Terrorizer","Extreme Noise Terror"],
-"American Nightmare":["Bane","Converge","The Hope Conspiracy","Some Girls","Panic"]
+"American Nightmare":["Bane","Converge","The Hope Conspiracy","Some Girls","Panic"],
+"Reagan Youth":["False Prophets","Heart Attack","Kraut","The Mob","Nihilistics"],
+"Heart Attack":["Urban Waste","The Mob","Reagan Youth","The Abused","Major Conflict"],
+"Urban Waste":["The Mob","Major Conflict","Antidote","The Abused","Agnostic Front"],
+"Antidote":["Cause for Alarm","The Abused","Urban Waste","Agnostic Front","Warzone"],
+"Token Entry":["Gorilla Biscuits","Youth of Today","Bold","Warzone","Murphy\'s Law"],
+"Leeway":["Cro-Mags","Agnostic Front","Murphy\'s Law","Sick of It All","Warzone"],
+"Nausea":["Cro-Mags","Reagan Youth","False Prophets","Discharge","Amebix"],
+"Kraut":["Reagan Youth","Heart Attack","The Mob","Agnostic Front","Urban Waste"],
+"The Mob":["Urban Waste","Heart Attack","Reagan Youth","The Abused","Major Conflict"],
+"Nihilistics":["Reagan Youth","False Prophets","Heart Attack","Swans","Sonic Youth"],
+"False Prophets":["Reagan Youth","Nihilistics","Nausea","MDC","Dead Kennedys"],
+"The Abused":["Urban Waste","The Mob","Antidote","Cause for Alarm","Major Conflict"],
+"Cause for Alarm":["Antidote","The Abused","Agnostic Front","Warzone","Cro-Mags"],
+"Major Conflict":["Urban Waste","The Mob","Heart Attack","The Abused","Agnostic Front"]
 };
 
 const bandsData=[
@@ -765,6 +779,51 @@ const bandsData=[
 ]},
 {name:"American Nightmare",scene:"Boston",era:"90s",formed:"1998",loc:"Boston, MA",album:"Background Music (2001)",tags:["Boston HC","Deathwish"],artistSpotify:"5FBzEnwXCKl3GoZCeXGMNy",discog:[
 {title:"Background Music",year:2001,spotify:"4UJQ7I8mzUwXCOxVWIxNkl",apple:"background-music/1443491506",yt:"gO2oKf0GbAI"}
+]},
+{name:"Reagan Youth",scene:"NY",era:"80s",formed:"1980",loc:"Queens, NY",album:"Youth Anthems for the New Order (1984)",tags:["NYHC","anarcho-punk","political"],artistSpotify:"5105k1OIV9BdhuB3rxtHYb",discog:[
+{title:"Youth Anthems for the New Order",year:1984,spotify:"",apple:"",yt:""}
+]},
+{name:"Heart Attack",scene:"NY",era:"80s",formed:"1980",loc:"New York, NY",album:"God Is Dead EP (1981)",tags:["NYHC","early hardcore"],artistSpotify:"5KS6V5wMtPLsYrg7WcjOr3",discog:[
+{title:"God Is Dead",year:1981,spotify:"",apple:"",yt:""}
+]},
+{name:"Urban Waste",scene:"NY",era:"80s",formed:"1981",loc:"Queens, NY",album:"Urban Waste EP (1982)",tags:["NYHC","skinhead","Oi"],artistSpotify:"76jIFBZbOtIV7YTVuhkJ1x",discog:[
+{title:"Urban Waste",year:1982,spotify:"",apple:"",yt:""}
+]},
+{name:"Kraut",scene:"NY",era:"80s",formed:"1981",loc:"New York, NY",album:"An Adjustment to Society (1982)",tags:["NYHC","punk","crossover"],artistSpotify:"7D19OcaK8ICUgCWFfFrO8I",discog:[
+{title:"An Adjustment to Society",year:1982,spotify:"",apple:"",yt:""},
+{title:"Whetting the Scythe",year:1984,spotify:"",apple:"",yt:""}
+]},
+{name:"The Mob",scene:"NY",era:"80s",formed:"1980",loc:"Queens, NY",album:"The Mob EP (1983)",tags:["NYHC","Oi","skinhead"],artistSpotify:"7nLU9AbWLcRrycbN02e8qT",discog:[
+{title:"The Mob",year:1983,spotify:"",apple:"",yt:""}
+]},
+{name:"Nihilistics",scene:"NY",era:"80s",formed:"1979",loc:"New York, NY",album:"Nihilistics (1985)",tags:["NYHC","noise"],artistSpotify:"4FNRQ4NSryMleGvIpvE7yM",discog:[
+{title:"Nihilistics",year:1985,spotify:"",apple:"",yt:""}
+]},
+{name:"False Prophets",scene:"NY",era:"80s",formed:"1980",loc:"New York, NY",album:"False Prophets (1986)",tags:["NYHC","political punk","anarcho-punk"],artistSpotify:"0bRtmhyD72jIEZYFJWECCM",discog:[
+{title:"False Prophets",year:1986,spotify:"",apple:"",yt:""},
+{title:"Implosion",year:1987,spotify:"",apple:"",yt:""}
+]},
+{name:"The Abused",scene:"NY",era:"80s",formed:"1982",loc:"New York, NY",album:"Loud and Clear EP (1983)",tags:["NYHC","skinhead"],discog:[
+{title:"Loud and Clear",year:1983,spotify:"",apple:"",yt:""}
+]},
+{name:"Cause for Alarm",scene:"NY",era:"80s",formed:"1982",loc:"New York, NY",album:"Cause for Alarm EP (1983)",tags:["NYHC","crossover"],artistSpotify:"6KSt7PgoroXrAUWPRH5fii",discog:[
+{title:"Cause for Alarm",year:1983,spotify:"",apple:"",yt:""}
+]},
+{name:"Antidote",scene:"NY",era:"80s",formed:"1983",loc:"New York, NY",album:"Thou Shalt Not Kill EP (1983)",tags:["NYHC","skinhead"],artistSpotify:"69XJqq3DXOzLuKYzo4mKIb",discog:[
+{title:"Thou Shalt Not Kill",year:1983,spotify:"",apple:"",yt:""}
+]},
+{name:"Major Conflict",scene:"NY",era:"80s",formed:"1982",loc:"Queens, NY",album:"Sounds Like 1983 (1983)",tags:["NYHC"],discog:[
+{title:"Sounds Like 1983",year:1983,spotify:"",apple:"",yt:""}
+]},
+{name:"Token Entry",scene:"NY",era:"80s",formed:"1984",loc:"Queens, NY",album:"From Beneath the Streets (1987)",tags:["NYHC","skate punk","youth crew"],artistSpotify:"3jkDKdWEhau7CF5zryjOAW",discog:[
+{title:"From Beneath the Streets",year:1987,spotify:"",apple:"",yt:""},
+{title:"Jaybird",year:1988,spotify:"",apple:"",yt:""}
+]},
+{name:"Leeway",scene:"NY",era:"80s",formed:"1984",loc:"Queens, NY",album:"Born to Expire (1988)",tags:["NYHC","crossover thrash"],artistSpotify:"2ZxNJ2rj9nrCg5Igwe0EQR",discog:[
+{title:"Born to Expire",year:1988,spotify:"",apple:"",yt:""}
+]},
+{name:"Nausea",scene:"NY",era:"80s",formed:"1985",loc:"New York, NY",album:"Extinction (1990)",tags:["NYHC","crust punk","anarcho-punk"],artistSpotify:"2ppBcpxOqehpLJuJQIRnKM",discog:[
+{title:"Extinction",year:1990,spotify:"",apple:"",yt:""}
 ]}
 ];
 
@@ -1313,16 +1372,20 @@ function initMap(){
   punkMap = L.map('punk-map',{
     center:[39.8,-98.5],
     zoom:4,
-    minZoom:2,
+    minZoom:3,
     maxZoom:7,
     zoomControl:true,
-    attributionControl:false
+    attributionControl:false,
+    maxBounds:[[-85,-180],[85,180]],
+    maxBoundsViscosity:1.0
   });
 
   // Dark tile layer
   L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{
     maxZoom:7,
-    subdomains:'abcd'
+    subdomains:'abcd',
+    noWrap:true,
+    bounds:[[-85,-180],[85,180]]
   }).addTo(punkMap);
   
   // Attribution
