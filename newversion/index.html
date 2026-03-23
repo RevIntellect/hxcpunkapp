@@ -1715,14 +1715,14 @@ function initMap(){
     dragging:true,
     touchZoom:true,
     minZoom:2,
-    maxZoom:10,
+    maxZoom:7,
     maxBounds:[[-60,-180],[75,180]],
     maxBoundsViscosity:1.0
   });
   
   // Dark tile layer
   L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{
-    maxZoom:10,
+    maxZoom:7,
     subdomains:'abcd'
   }).addTo(punkMap);
   
@@ -1742,7 +1742,7 @@ function setMapView(region){
   const views = {
     us:{center:[39,-96],zoom:4},
     northeast:{center:[41,-74],zoom:6},
-    westcoast:{center:[35,-119],zoom:6},
+    westcoast:{center:[35,-119],zoom:5},
     europe:{center:[50,10],zoom:4},
     world:{center:[30,0],zoom:2},
     japan:{center:[36,138],zoom:5},
