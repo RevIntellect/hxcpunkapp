@@ -95,6 +95,7 @@ pointer-events:none;z-index:1}
 .scene-bands span:hover{background:rgba(196,30,30,.4);border-color:var(--red);cursor:pointer}
 .scene-label{font-size:.85rem;color:#777;text-transform:uppercase;letter-spacing:2px;margin-top:14px}
 .scene-label-name{font-size:.95rem;color:var(--yellow);margin-top:4px}
+.scene-card.active-filter{border-color:var(--red);box-shadow:0 0 12px rgba(196,30,30,.3)}
 
 /* BANDS TABLE */
 .band-filters{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:24px}
@@ -366,6 +367,8 @@ pointer-events:none;z-index:1}
 <div class="map-container">
 <div id="punk-map"></div>
 </div>
+<h2 class="section-head" style="margin-top:28px"><span class="section-icon">&#9673;</span> Regional Scenes</h2>
+<div class="scene-grid" id="scene-container"></div>
 </div>
 
 <!-- TIMELINE -->
@@ -833,7 +836,9 @@ if(idx>=0)return `<span style="cursor:pointer" onclick="openBandModal(${idx})">$
 return `<span>${b}</span>`;
 }).join('');
 const glyph=cityGlyphs[s.cls]||'';
-scC.innerHTML+=`<div class="scene-card ${s.cls}" data-glyph="${glyph}"><div class="scene-city">${s.city}</div><div class="scene-era">${s.era}</div><div class="scene-desc">${s.desc}</div><div class="scene-bands">${bands}</div><div class="scene-label">Key Label(s)</div><div class="scene-label-name">${s.label}</div></div>`;
+const sceneNameMap={la:"Los Angeles",dc:"Washington DC",ny:"New York",boston:"Boston",sf:"San Francisco",cleveland:"Cleveland",uk:"UK"};
+const filterName=sceneNameMap[s.cls]||s.city;
+scC.innerHTML+=`<div class="scene-card ${s.cls}" data-glyph="${glyph}" data-scene="${filterName}" onclick="toggleSceneFilter('${filterName}');this.classList.toggle('active-filter')" style="cursor:pointer"><div class="scene-city">${s.city}</div><div class="scene-era">${s.era}</div><div class="scene-desc">${s.desc}</div><div class="scene-bands">${bands}</div><div class="scene-label">Key Label(s)</div><div class="scene-label-name">${s.label}</div></div>`;
 });
 }
 
@@ -1284,11 +1289,16 @@ function toggleSceneFilter(scene){
   if(activeSceneFilter===scene){
     activeSceneFilter=null;
     document.querySelectorAll('.map-legend-item').forEach(el=>{el.classList.remove('active','dimmed')});
+    document.querySelectorAll('.scene-card').forEach(el=>{el.classList.remove('active-filter')});
   } else {
     activeSceneFilter=scene;
     document.querySelectorAll('.map-legend-item').forEach(el=>{
       if(el.dataset.scene===scene){el.classList.add('active');el.classList.remove('dimmed')}
       else{el.classList.remove('active');el.classList.add('dimmed')}
+    });
+    document.querySelectorAll('.scene-card').forEach(el=>{
+      if(el.dataset.scene===scene){el.classList.add('active-filter')}
+      else{el.classList.remove('active-filter')}
     });
   }
   updateMap(parseInt(document.getElementById('map-year-slider').value));
