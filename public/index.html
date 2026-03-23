@@ -243,7 +243,7 @@ pointer-events:none;z-index:1}
 
 /* INTERACTIVE MAP */
 .map-container{position:relative}
-#punk-map{width:100%;height:500px;background:#0a0a0a;border:1px solid #222;margin-bottom:16px}
+#punk-map{width:100%;height:560px;background:#0a0a0a;border:1px solid #222;margin-bottom:16px}
 .map-controls{background:rgba(20,20,20,.95);border:1px solid #222;padding:20px;margin-bottom:16px}
 .map-slider-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
 .map-slider-label{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--yellow);min-width:120px;text-align:center}
@@ -267,6 +267,8 @@ pointer-events:none;z-index:1}
 .leaflet-popup-content{font-size:.9rem!important;line-height:1.5!important}
 .popup-band{cursor:pointer;color:var(--red);text-decoration:none;display:block;padding:2px 0;transition:color .2s}
 .popup-band:hover{color:var(--yellow)}
+@keyframes pulse-ring{0%{transform:scale(1);opacity:.6}100%{transform:scale(1.8);opacity:0}}
+.pulse-marker{animation:pulse-ring 2s ease-out infinite}
 .leaflet-control-zoom a{background:#1a1a1a!important;color:var(--white)!important;border-color:#333!important}
 
 /* FOOTER */
@@ -1268,14 +1270,17 @@ function initMap(){
   updateMap(parseInt(document.getElementById('map-year-slider').value));
 }
 
+// Offset overlapping cities so markers don't stack
+const cityOffsets={"Washington DC":{lat:-0.8,lng:1.2}};
+
 function updateMap(year){
   // Clear existing markers
   mapMarkers.forEach(m=>punkMap.removeLayer(m));
   mapMarkers=[];
-  
+
   // Filter bands active by this year
   const activeBands = bandsData.filter(b=>getFormYear(b)<=year);
-  
+
   // Group by city
   const cityGroups={};
   activeBands.forEach(b=>{
@@ -1285,22 +1290,46 @@ function updateMap(year){
     if(!cityGroups[key]) cityGroups[key]={bands:[],lat:coord.lat,lng:coord.lng,color:coord.color};
     cityGroups[key].bands.push(b);
   });
-  
+
   // Create markers
   Object.entries(cityGroups).forEach(([city,data])=>{
     const count = data.bands.length;
-    const radius = Math.max(10, Math.min(35, 8 + count*4));
-    
-    // Pulsing circle marker
-    const marker = L.circleMarker([data.lat,data.lng],{
+    const radius = Math.max(12, Math.min(40, 8 + count*3));
+
+    // Apply offset for overlapping cities
+    const offset = cityOffsets[city]||{lat:0,lng:0};
+    const lat = data.lat + offset.lat;
+    const lng = data.lng + offset.lng;
+
+    // Outer glow ring
+    const glow = L.circleMarker([lat,lng],{
+      radius:radius+6,
+      fillColor:data.color,
+      color:'transparent',
+      weight:0,
+      fillOpacity:0.1
+    }).addTo(punkMap);
+
+    // Main circle marker
+    const marker = L.circleMarker([lat,lng],{
       radius:radius,
       fillColor:data.color,
       color:data.color,
       weight:2,
       opacity:0.9,
-      fillOpacity:0.4
+      fillOpacity:0.35
     }).addTo(punkMap);
-    
+
+    // Hover highlight
+    marker.on('mouseover',function(){
+      this.setStyle({fillOpacity:0.7,weight:3});
+      glow.setStyle({fillOpacity:0.25});
+    });
+    marker.on('mouseout',function(){
+      this.setStyle({fillOpacity:0.35,weight:2});
+      glow.setStyle({fillOpacity:0.1});
+    });
+
     // Popup with clickable band names
     const bandLinks = data.bands
       .sort((a,b)=>getFormYear(a)-getFormYear(b))
@@ -1308,29 +1337,30 @@ function updateMap(year){
         const idx = bandsData.indexOf(b);
         return `<span class="popup-band" onclick="closeMapPopups();openBandModal(${idx})">${b.name} <span style="color:#888">(${b.formed})</span></span>`;
       }).join('');
-    
+
     marker.bindPopup(`
-      <div style="min-width:180px">
-        <div style="font-family:Bebas Neue,sans-serif;font-size:1.4rem;color:${data.color};letter-spacing:2px">${city}</div>
-        <div style="font-size:.8rem;color:#888;margin-bottom:8px">${count} band${count>1?'s':''} by ${year}</div>
+      <div style="min-width:200px">
+        <div style="font-family:Bebas Neue,sans-serif;font-size:1.5rem;color:${data.color};letter-spacing:2px;border-bottom:1px solid #333;padding-bottom:6px;margin-bottom:6px">${city}</div>
+        <div style="font-size:.8rem;color:#888;margin-bottom:8px">${count} band${count>1?'s':''} active by ${year}</div>
         ${bandLinks}
       </div>
-    `,{maxHeight:300,className:'punk-popup'});
-    
+    `,{maxHeight:350,className:'punk-popup',autoPanPadding:[40,40]});
+
     // City label
-    const label = L.marker([data.lat,data.lng],{
+    const label = L.marker([lat,lng],{
       icon:L.divIcon({
         className:'map-city-label',
-        html:`<div style="font-family:Bebas Neue,sans-serif;font-size:.85rem;color:${data.color};text-shadow:1px 1px 2px #000;white-space:nowrap;text-align:center;pointer-events:none">${city}<br><span style="font-size:.75rem;color:#aaa">${count}</span></div>`,
-        iconSize:[80,30],
-        iconAnchor:[40,-radius-4]
+        html:`<div style="font-family:Bebas Neue,sans-serif;font-size:.9rem;color:${data.color};text-shadow:0 0 6px #000,1px 1px 3px #000;white-space:nowrap;text-align:center;pointer-events:none">${city}<br><span style="font-size:.8rem;color:#ccc;font-family:Space Mono,monospace">${count}</span></div>`,
+        iconSize:[100,30],
+        iconAnchor:[50,-radius-6]
       })
     }).addTo(punkMap);
-    
+
+    mapMarkers.push(glow);
     mapMarkers.push(marker);
     mapMarkers.push(label);
   });
-  
+
   // Update stats
   document.getElementById('map-year-display').textContent=year;
   document.getElementById('map-band-count').textContent=activeBands.length;
@@ -1382,8 +1412,30 @@ function toggleMapPlay(){
     }
     mapSlider.value=year;
     updateMap(year);
-  },800);
+  },600);
 }
+
+// Keyboard navigation for map slider
+document.addEventListener('keydown',e=>{
+  const panel = document.getElementById('punkmap');
+  if(!panel||!panel.classList.contains('active')) return;
+  if(e.key==='ArrowRight'||e.key==='ArrowUp'){
+    e.preventDefault();
+    const v=Math.min(1999,parseInt(mapSlider.value)+1);
+    mapSlider.value=v;
+    updateMap(v);
+  }
+  if(e.key==='ArrowLeft'||e.key==='ArrowDown'){
+    e.preventDefault();
+    const v=Math.max(1976,parseInt(mapSlider.value)-1);
+    mapSlider.value=v;
+    updateMap(v);
+  }
+  if(e.key===' '&&document.activeElement!==document.querySelector('.global-ask-input')){
+    e.preventDefault();
+    toggleMapPlay();
+  }
+});
 
 // Initialize map when the Map tab is shown
 const origTabHandler = document.querySelectorAll('.nav button');
