@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+<title>HXC Remote</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Space+Mono:wght@400;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--black:#0a0a0a;--white:#e8e0d4;--red:#c41e1e;--yellow:#d4a017;--green:#2a5a2a}
+body{background:var(--black);color:var(--white);font-family:'Space Mono',monospace;min-height:100vh;min-height:100dvh;overflow-x:hidden;-webkit-user-select:none;user-select:none;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+
+.header{text-align:center;padding:20px 16px 12px;border-bottom:2px solid var(--red)}
+.header h1{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--red);letter-spacing:4px}
+.header .sub{font-size:.75rem;color:#666;letter-spacing:2px}
+.status{display:inline-block;width:8px;height:8px;border-radius:50%;background:#555;margin-right:6px;vertical-align:middle;transition:background .3s}
+.status.connected{background:#4a4;box-shadow:0 0 6px rgba(74,154,74,.6)}
+
+.section{padding:16px}
+.section-label{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:var(--yellow);letter-spacing:3px;margin-bottom:10px;text-transform:uppercase}
+
+/* TAB GRID */
+.tab-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.tab-btn{background:rgba(30,30,30,.9);border:1px solid #333;color:#999;font-family:'Oswald',sans-serif;font-size:.9rem;padding:14px 6px;text-align:center;text-transform:uppercase;letter-spacing:1px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:all .15s;border-radius:2px}
+.tab-btn:active,.tab-btn.active{background:var(--red);border-color:var(--red);color:var(--white);transform:scale(.95)}
+.tab-btn.active{background:var(--red);border-color:var(--red);color:var(--white)}
+
+/* MAP CONTROLS */
+.map-section{background:rgba(20,20,20,.8);border:1px solid #222;padding:16px;border-radius:2px}
+.year-display{font-family:'Bebas Neue',sans-serif;font-size:3.5rem;color:var(--yellow);text-align:center;line-height:1}
+.year-stats{text-align:center;font-size:.8rem;color:#666;margin-bottom:12px}
+.slider-row{display:flex;align-items:center;gap:12px;margin:12px 0}
+.year-slider{flex:1;-webkit-appearance:none;appearance:none;height:8px;background:#222;outline:none;border-radius:4px}
+.year-slider::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;background:var(--red);border-radius:50%;cursor:pointer;border:2px solid var(--white)}
+.year-slider::-moz-range-thumb{width:28px;height:28px;background:var(--red);border-radius:50%;cursor:pointer;border:2px solid var(--white)}
+
+.transport{display:flex;gap:8px;justify-content:center;margin-top:12px}
+.transport-btn{width:64px;height:64px;border-radius:50%;border:2px solid #444;background:rgba(30,30,30,.9);color:var(--white);font-size:1.4rem;display:flex;align-items:center;justify-content:center;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:all .15s}
+.transport-btn:active{transform:scale(.9);border-color:var(--red)}
+.transport-btn.play-btn{width:72px;height:72px;border-color:var(--red);font-size:1.6rem}
+.transport-btn.play-btn.playing{background:var(--red);border-color:var(--white)}
+
+/* NAV ARROWS */
+.nav-arrows{display:flex;gap:8px;justify-content:center;margin-top:8px}
+.arrow-btn{flex:1;max-width:160px;padding:16px;background:rgba(30,30,30,.9);border:1px solid #333;color:#ccc;font-family:'Oswald',sans-serif;font-size:1rem;text-align:center;text-transform:uppercase;letter-spacing:2px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:all .15s}
+.arrow-btn:active{background:var(--red);border-color:var(--red);color:var(--white);transform:scale(.95)}
+
+/* BAND QUICK ACCESS */
+.band-search{width:100%;padding:12px;background:rgba(30,30,30,.9);border:1px solid #333;color:var(--white);font-family:'Space Mono',monospace;font-size:1rem;outline:none;border-radius:2px}
+.band-search:focus{border-color:var(--red)}
+.band-list{max-height:200px;overflow-y:auto;margin-top:8px}
+.band-item{padding:12px;background:rgba(25,25,25,.9);border:1px solid #222;margin-bottom:4px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:all .15s;display:flex;align-items:center;gap:10px}
+.band-item:active{background:var(--red);border-color:var(--red)}
+.band-item .initials{width:32px;height:32px;background:rgba(196,30,30,.2);border:1px solid rgba(196,30,30,.4);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:.9rem;color:var(--red);flex-shrink:0}
+.band-item .info{font-size:.85rem;color:#ccc}
+.band-item .info small{color:#666;display:block;font-size:.75rem}
+
+.footer{text-align:center;padding:20px;font-size:.7rem;color:#444;letter-spacing:2px}
+
+/* Quick jump year markers */
+.year-markers{display:flex;justify-content:space-between;padding:0 4px;margin-top:4px}
+.year-mark{font-size:.7rem;color:#555;cursor:pointer;padding:4px}
+.year-mark:active{color:var(--yellow)}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>HXC REMOTE</h1>
+  <div class="sub"><span class="status" id="conn-status"></span>HARDCORE PUNK DASHBOARD CONTROL</div>
+</div>
+
+<!-- TAB SWITCHING -->
+<div class="section">
+  <div class="section-label">Sections</div>
+  <div class="tab-grid">
+    <div class="tab-btn active" data-tab="punkmap" onclick="switchTab(this)">Map</div>
+    <div class="tab-btn" data-tab="timeline" onclick="switchTab(this)">Timeline</div>
+    <div class="tab-btn" data-tab="scenes" onclick="switchTab(this)">Scenes</div>
+    <div class="tab-btn" data-tab="bands" onclick="switchTab(this)">Bands</div>
+    <div class="tab-btn" data-tab="subgenres" onclick="switchTab(this)">Sub-<br>genres</div>
+    <div class="tab-btn" data-tab="albums" onclick="switchTab(this)">Albums</div>
+    <div class="tab-btn" data-tab="stats" onclick="switchTab(this)">Stats</div>
+    <div class="tab-btn" data-tab="askscene" onclick="switchTab(this)">Ask</div>
+  </div>
+  <div class="nav-arrows">
+    <div class="arrow-btn" onclick="send({action:'prevTab'})">&#9664; Prev</div>
+    <div class="arrow-btn" onclick="send({action:'nextTab'})">Next &#9654;</div>
+  </div>
+</div>
+
+<!-- MAP TIMELINE CONTROL -->
+<div class="section">
+  <div class="section-label">Map Timeline</div>
+  <div class="map-section">
+    <div class="year-display" id="year-display">1980</div>
+    <div class="year-stats" id="year-stats"></div>
+    <div class="slider-row">
+      <div class="year-slider" style="flex:0;min-width:40px;text-align:center;font-family:'Bebas Neue',sans-serif;color:var(--yellow)">1976</div>
+      <input type="range" class="year-slider" id="year-slider" min="1976" max="1999" value="1980" step="1">
+      <div class="year-slider" style="flex:0;min-width:40px;text-align:center;font-family:'Bebas Neue',sans-serif;color:var(--yellow)">1999</div>
+    </div>
+    <div class="year-markers">
+      <span class="year-mark" onclick="setYear(1976)">76</span>
+      <span class="year-mark" onclick="setYear(1978)">78</span>
+      <span class="year-mark" onclick="setYear(1980)">80</span>
+      <span class="year-mark" onclick="setYear(1982)">82</span>
+      <span class="year-mark" onclick="setYear(1984)">84</span>
+      <span class="year-mark" onclick="setYear(1986)">86</span>
+      <span class="year-mark" onclick="setYear(1988)">88</span>
+      <span class="year-mark" onclick="setYear(1990)">90</span>
+      <span class="year-mark" onclick="setYear(1992)">92</span>
+      <span class="year-mark" onclick="setYear(1994)">94</span>
+      <span class="year-mark" onclick="setYear(1996)">96</span>
+      <span class="year-mark" onclick="setYear(1999)">99</span>
+    </div>
+    <div class="transport">
+      <div class="transport-btn" onclick="send({action:'mapPrev'})">&#9664;&#9664;</div>
+      <div class="transport-btn play-btn" id="play-btn" onclick="togglePlay()">&#9654;</div>
+      <div class="transport-btn" onclick="send({action:'mapNext'})">&#9654;&#9654;</div>
+    </div>
+  </div>
+</div>
+
+<!-- BAND QUICK ACCESS -->
+<div class="section">
+  <div class="section-label">Open Band</div>
+  <input type="text" class="band-search" id="band-search" placeholder="Search bands..." oninput="filterBands()">
+  <div class="band-list" id="band-list"></div>
+</div>
+
+<div class="footer">OPEN THE DASHBOARD IN ANOTHER TAB ON THIS DEVICE</div>
+
+<script>
+// BroadcastChannel for same-origin tab communication
+let rc;
+let connected = false;
+let playing = false;
+let currentYear = 1980;
+
+// Band data (synced from main app via ping/pong)
+let bandCount = 0;
+const knownBands = [];
+
+try {
+  rc = new BroadcastChannel('hxc-remote');
+} catch(e) {
+  document.querySelector('.footer').textContent = 'BroadcastChannel not supported in this browser';
+}
+
+if(rc){
+  rc.onmessage = function(e){
+    const msg = e.data;
+    if(!msg || !msg.action) return;
+
+    if(msg.action === 'pong'){
+      connected = true;
+      document.getElementById('conn-status').classList.add('connected');
+
+      // Sync state
+      if(msg.tab){
+        document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+        const active = document.querySelector(`.tab-btn[data-tab="${msg.tab}"]`);
+        if(active) active.classList.add('active');
+      }
+      if(msg.year){
+        currentYear = msg.year;
+        document.getElementById('year-slider').value = msg.year;
+        document.getElementById('year-display').textContent = msg.year;
+      }
+      if(msg.playing !== undefined){
+        playing = msg.playing;
+        updatePlayBtn();
+      }
+      bandCount = msg.bandCount || 0;
+    }
+  };
+
+  // Ping dashboard to sync state
+  function ping(){
+    rc.postMessage({action:'ping'});
+  }
+  ping();
+  setInterval(ping, 3000);
+
+  // Detect disconnect
+  setInterval(()=>{
+    if(!connected) document.getElementById('conn-status').classList.remove('connected');
+    connected = false;
+  }, 5000);
+}
+
+function send(msg){
+  if(rc) rc.postMessage(msg);
+  // Haptic feedback
+  if(navigator.vibrate) navigator.vibrate(20);
+}
+
+function switchTab(el){
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  send({action:'switchTab', tab:el.dataset.tab});
+}
+
+// Map year slider
+const yearSlider = document.getElementById('year-slider');
+yearSlider.addEventListener('input', function(){
+  currentYear = parseInt(this.value);
+  document.getElementById('year-display').textContent = currentYear;
+  send({action:'mapYear', year:currentYear});
+});
+
+function setYear(y){
+  currentYear = y;
+  yearSlider.value = y;
+  document.getElementById('year-display').textContent = y;
+  send({action:'mapYear', year:y});
+  if(navigator.vibrate) navigator.vibrate(15);
+}
+
+function togglePlay(){
+  playing = !playing;
+  updatePlayBtn();
+  send({action:'mapPlay'});
+}
+
+function updatePlayBtn(){
+  const btn = document.getElementById('play-btn');
+  if(playing){
+    btn.classList.add('playing');
+    btn.innerHTML = '&#9724;';
+  } else {
+    btn.classList.remove('playing');
+    btn.innerHTML = '&#9654;';
+  }
+}
+
+// Band list - fetch from main page data
+// We'll populate from a static list embedded here matching the main app
+const bandNames = [
+  "Black Flag","Minor Threat","Bad Brains","Dead Kennedys","Misfits",
+  "Circle Jerks","Descendents","The Germs","Fear","TSOL",
+  "Adolescents","Agent Orange","X","Suicidal Tendencies","D.R.I.",
+  "Government Issue","Void","Scream","Dag Nasty","Rites of Spring",
+  "Embrace","Fugazi","SSD","Jerry's Kids","Gang Green",
+  "Negative Approach","Negative FX","DYS","Gorilla Biscuits","Youth of Today",
+  "Agnostic Front","Cro-Mags","Warzone","Murphy's Law","Madball",
+  "Sick of It All","Token Entry","Breakdown","Raw Deal","Leeway",
+  "Side by Side","Judge","Bold","Underdog","Cromags",
+  "Discharge","GBH","Crass","Subhumans","Conflict",
+  "The Exploited","Poison Idea","Snapcase","Earth Crisis","Hatebreed",
+  "Refused","Infest","Napalm Death","Nation of Ulysses","Bane",
+  "Integrity","Converge","All Out War","Merauder","Biohazard",
+  "25 ta Life","Sheer Terror","Killing Time","Rest in Pieces",
+  "Outburst","Supertouch","Absolution","Burn","Quicksand"
+];
+
+function filterBands(){
+  const q = document.getElementById('band-search').value.toLowerCase();
+  const list = document.getElementById('band-list');
+
+  if(!q){
+    list.innerHTML = '';
+    return;
+  }
+
+  const matches = bandNames
+    .map((name,i) => ({name, index:i}))
+    .filter(b => b.name.toLowerCase().includes(q))
+    .slice(0, 10);
+
+  list.innerHTML = matches.map(b => {
+    const initials = b.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+    return `<div class="band-item" onclick="openBand(${b.index})">
+      <div class="initials">${initials}</div>
+      <div class="info">${b.name}</div>
+    </div>`;
+  }).join('');
+}
+
+function openBand(idx){
+  send({action:'openBand', index:idx});
+  document.getElementById('band-search').value = '';
+  document.getElementById('band-list').innerHTML = '';
+  if(navigator.vibrate) navigator.vibrate(30);
+}
+</script>
+</body>
+</html>

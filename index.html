@@ -1401,6 +1401,84 @@ origTabHandler.forEach(btn=>{
 // Auto-init if map is the default tab
 setTimeout(initMap,300);
 
+// REMOTE CONTROL - BroadcastChannel listener
+(function(){
+  if(typeof BroadcastChannel==='undefined')return;
+  const rc=new BroadcastChannel('hxc-remote');
+  const tabs=['punkmap','timeline','scenes','bands','subgenres','albums','stats','askscene'];
+
+  rc.onmessage=function(e){
+    const msg=e.data;
+    if(!msg||!msg.action)return;
+
+    switch(msg.action){
+      case 'switchTab':{
+        const tabId=msg.tab;
+        if(!tabId)return;
+        const btn=document.querySelector(`.nav button[data-tab="${tabId}"]`);
+        if(btn)btn.click();
+        break;
+      }
+      case 'nextTab':
+      case 'prevTab':{
+        const cur=document.querySelector('.nav button.active');
+        const idx=tabs.indexOf(cur?cur.dataset.tab:'punkmap');
+        const next=msg.action==='nextTab'?(idx+1)%tabs.length:(idx-1+tabs.length)%tabs.length;
+        const btn=document.querySelector(`.nav button[data-tab="${tabs[next]}"]`);
+        if(btn)btn.click();
+        break;
+      }
+      case 'mapYear':{
+        const y=parseInt(msg.year);
+        if(y>=1976&&y<=1999){
+          jumpToYear(y);
+          initMap();
+        }
+        break;
+      }
+      case 'mapNext':
+      case 'mapPrev':{
+        const slider=document.getElementById('map-year-slider');
+        let y=parseInt(slider.value)+(msg.action==='mapNext'?1:-1);
+        y=Math.max(1976,Math.min(1999,y));
+        jumpToYear(y);
+        break;
+      }
+      case 'mapPlay':{
+        toggleMapPlay();
+        break;
+      }
+      case 'openBand':{
+        const idx=parseInt(msg.index);
+        if(idx>=0&&idx<bandsData.length){
+          // Switch to bands tab first
+          const btn=document.querySelector('.nav button[data-tab="bands"]');
+          if(btn)btn.click();
+          setTimeout(()=>openBandModal(idx),200);
+        }
+        break;
+      }
+      case 'scrollTo':{
+        window.scrollTo({top:msg.y||0,behavior:'smooth'});
+        break;
+      }
+      case 'ping':{
+        // Report current state back
+        const curTab=document.querySelector('.nav button.active');
+        const slider=document.getElementById('map-year-slider');
+        rc.postMessage({
+          action:'pong',
+          tab:curTab?curTab.dataset.tab:'punkmap',
+          year:slider?parseInt(slider.value):1980,
+          playing:!!mapPlayInterval,
+          bandCount:bandsData.length
+        });
+        break;
+      }
+    }
+  };
+})();
+
 </script>
 </body>
 </html>
