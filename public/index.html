@@ -524,10 +524,6 @@ pointer-events:none;z-index:1}
 <div class="map-stat">Bands active by <strong id="map-band-count">0</strong></div>
 <div class="map-stat">Scenes lit: <strong id="map-scene-count">0</strong></div>
 </div>
-<div class="map-scene-filters">
-<div class="map-filter-label">Filter by Scene:</div>
-<div class="map-filter-chips" id="map-filter-chips"></div>
-</div>
 <div class="map-legend" id="map-legend"></div>
 </div>
 <div class="map-container">
@@ -1654,27 +1650,7 @@ function getFormYear(b){
 }
 
 // Scene color legend
-const sceneLegend = [
-  {color:"#c41e1e",name:"Los Angeles"},
-  {color:"#e8772e",name:"Orange County"},
-  {color:"#3a7acc",name:"Washington DC"},
-  {color:"#c45a1e",name:"New York"},
-  {color:"#cc8844",name:"New Jersey"},
-  {color:"#44aacc",name:"Philadelphia"},
-  {color:"#3a9a3a",name:"Boston"},
-  {color:"#d4a017",name:"San Francisco"},
-  {color:"#cc66aa",name:"San Diego"},
-  {color:"#9a66aa",name:"Cleveland"},
-  {color:"#66aa66",name:"Seattle"},
-  {color:"#8844aa",name:"New Orleans"},
-  {color:"#cc6655",name:"Richmond"},
-  {color:"#8b2252",name:"UK"},
-  {color:"#dd3333",name:"Japan"},
-  {color:"#dd8833",name:"Italy"},
-  {color:"#4488cc",name:"Sweden"},
-  {color:"#33aa33",name:"Brazil"},
-  {color:"#cc5555",name:"Other"}
-];
+const sceneLegend = [];
 
 // Build legend
 const legendEl = document.getElementById('map-legend');
