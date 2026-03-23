@@ -258,8 +258,11 @@ pointer-events:none;z-index:1}
 .map-play-btn{background:var(--red);border:none;color:var(--white);font-family:'Oswald',sans-serif;font-size:1rem;padding:8px 20px;cursor:pointer;letter-spacing:2px;text-transform:uppercase;transition:all .2s;margin-left:12px}
 .map-play-btn:hover{background:#e63333}
 .map-play-btn.playing{background:var(--yellow);color:var(--black)}
-.map-legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px;padding-top:12px;border-top:1px solid #222}
-.map-legend-item{display:flex;align-items:center;gap:6px;font-size:.85rem;color:#aaa}
+.map-legend{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;padding-top:12px;border-top:1px solid #222}
+.map-legend-item{display:flex;align-items:center;gap:6px;font-size:.85rem;color:#aaa;cursor:pointer;padding:5px 10px;border:1px solid #333;transition:all .2s;user-select:none}
+.map-legend-item:hover{border-color:#666;color:var(--white)}
+.map-legend-item.active{border-color:currentColor;color:var(--white);background:rgba(255,255,255,.08)}
+.map-legend-item.dimmed{opacity:.35}
 .map-legend-dot{width:12px;height:12px;border-radius:50%;border:2px solid rgba(0,0,0,.3)}
 .leaflet-popup-content-wrapper{background:#1a1a1a!important;color:var(--white)!important;border:1px solid #333!important;border-radius:0!important;font-family:'Space Mono',monospace!important}
 .leaflet-popup-tip{background:#1a1a1a!important}
@@ -335,7 +338,6 @@ pointer-events:none;z-index:1}
 <nav class="nav" id="nav">
 <button class="active" data-tab="punkmap">Map</button>
 <button data-tab="timeline">Timeline</button>
-<button data-tab="scenes">Scenes</button>
 <button data-tab="bands">Bands</button>
 <button data-tab="subgenres">Subgenres</button>
 <button data-tab="albums">Albums</button>
@@ -368,12 +370,6 @@ pointer-events:none;z-index:1}
 <div class="panel" id="timeline">
 <h2 class="section-head">The Arc of Aggression</h2>
 <div class="timeline" id="tl-container"></div>
-</div>
-
-<!-- SCENES -->
-<div class="panel" id="scenes">
-<h2 class="section-head">Regional Scenes</h2>
-<div class="scene-grid" id="scene-container"></div>
 </div>
 
 <!-- BANDS -->
@@ -1227,11 +1223,26 @@ const sceneLegend = [
   {color:"#cc5555",name:"Other"}
 ];
 
-// Build legend
+// Build legend as clickable scene filters
+let activeSceneFilter = null;
 const legendEl = document.getElementById('map-legend');
 sceneLegend.forEach(s=>{
-  legendEl.innerHTML+=`<div class="map-legend-item"><div class="map-legend-dot" style="background:${s.color}"></div>${s.name}</div>`;
+  legendEl.innerHTML+=`<div class="map-legend-item" data-scene="${s.name}" onclick="toggleSceneFilter('${s.name}')"><div class="map-legend-dot" style="background:${s.color}"></div>${s.name}</div>`;
 });
+
+function toggleSceneFilter(scene){
+  if(activeSceneFilter===scene){
+    activeSceneFilter=null;
+    document.querySelectorAll('.map-legend-item').forEach(el=>{el.classList.remove('active','dimmed')});
+  } else {
+    activeSceneFilter=scene;
+    document.querySelectorAll('.map-legend-item').forEach(el=>{
+      if(el.dataset.scene===scene){el.classList.add('active');el.classList.remove('dimmed')}
+      else{el.classList.remove('active');el.classList.add('dimmed')}
+    });
+  }
+  updateMap(parseInt(document.getElementById('map-year-slider').value));
+}
 
 // Initialize map
 let punkMap = null;
@@ -1270,11 +1281,17 @@ function updateMap(year){
   const activeBands = bandsData.filter(b=>getFormYear(b)<=year);
   
   // Group by city
+  const mainScenes=["Los Angeles","Washington DC","New York","Boston","San Francisco","Cleveland","UK"];
   const cityGroups={};
   activeBands.forEach(b=>{
     const coord = cityCoords[b.loc];
     if(!coord) return;
     const key = coord.city;
+    // Apply scene filter
+    if(activeSceneFilter){
+      const cityScene = mainScenes.includes(key) ? key : "Other";
+      if(cityScene!==activeSceneFilter) return;
+    }
     if(!cityGroups[key]) cityGroups[key]={bands:[],lat:coord.lat,lng:coord.lng,color:coord.color};
     cityGroups[key].bands.push(b);
   });
