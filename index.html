@@ -929,9 +929,6 @@ let html=`<button class="modal-close" onclick="closeModal()">&times;</button>`;
 // Hero: Wikipedia band photo with overlay
 html+=`<div class="modal-hero" id="modal-hero-${idx}"><div class="modal-hero-placeholder"><span>${b.name}</span></div><div class="modal-hero-overlay"><div class="modal-band">${b.name}</div><div class="modal-band-loc">${b.loc} &bull; Formed ${b.formed} &bull; ${b.scene}</div></div></div>`;
 
-// Fetch Wikipedia photo
-fetchBandPhoto(b.name, idx);
-
 // Spotify artist embed
 if(b.artistSpotify){
 html+=`<div class="modal-hero-spotify"><iframe src="https://open.spotify.com/embed/artist/${b.artistSpotify}?theme=0" height="352" allow="encrypted-media" loading="lazy" style="border:none;width:100%;border-radius:0"></iframe></div>`;
@@ -1001,6 +998,8 @@ html+=`</div>`;
 modalEl.innerHTML=html;
 overlay.classList.add('open');
 overlay.scrollTop=0;
+// Fetch band photo after DOM is ready
+fetchBandPhoto(b.name, idx);
 }
 
 // AI RESEARCH FUNCTION
