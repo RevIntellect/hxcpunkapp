@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Hardcore Punk History: 1980-1999</title>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Space+Mono:wght@400;700&family=Bebas+Neue&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
@@ -14,7 +14,7 @@
 --blue:#1a3a5c;--green:#2a5a2a;--pink:#8b2252;--orange:#c45a1e;
 --grain:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
 }
-body{background:var(--black);color:var(--white);font-family:'Space Mono',monospace;overflow-x:hidden;min-height:100vh;font-size:16px}
+body{background:var(--black);color:var(--white);font-family:'Space Mono',monospace;overflow-x:hidden;min-height:100vh;font-size:16px;-webkit-text-size-adjust:100%;overscroll-behavior:none}
 body::before{content:'';position:fixed;inset:0;background:var(--grain);pointer-events:none;z-index:9999;opacity:.25}
 
 /* HEADER */
@@ -80,6 +80,32 @@ pointer-events:none;z-index:1}
 .scene-card.sf::before{background:var(--yellow)}
 .scene-card.uk::before{background:var(--pink)}
 .scene-card.cleveland::before{background:#7a4488}
+
+.scene-card.oc::before{background:#e8772e}
+.scene-card.oc .scene-city{color:#e8772e}
+.scene-card.nj::before{background:#cc8844}
+.scene-card.nj .scene-city{color:#cc8844}
+.scene-card.philly::before{background:#44aacc}
+.scene-card.philly .scene-city{color:#44aacc}
+.scene-card.sd::before{background:#cc66aa}
+.scene-card.sd .scene-city{color:#cc66aa}
+.scene-card.seattle::before{background:#66aa66}
+.scene-card.seattle .scene-city{color:#66aa66}
+.scene-card.midwest::before{background:#cc5555}
+.scene-card.midwest .scene-city{color:#cc5555}
+.scene-card.nola::before{background:#8844aa}
+.scene-card.nola .scene-city{color:#8844aa}
+.scene-card.japan::before{background:#dd3333}
+.scene-card.japan .scene-city{color:#dd3333}
+.scene-card.italy::before{background:#dd8833}
+.scene-card.italy .scene-city{color:#dd8833}
+.scene-card.sweden::before{background:#4488cc}
+.scene-card.sweden .scene-city{color:#4488cc}
+.scene-card.brazil::before{background:#33aa33}
+.scene-card.brazil .scene-city{color:#33aa33}
+.scene-card.richmond::before{background:#cc6655}
+.scene-card.richmond .scene-city{color:#cc6655}
+
 .scene-city{font-family:'Bebas Neue',sans-serif;font-size:1.9rem;letter-spacing:2px}
 .scene-card.la .scene-city{color:var(--red)}
 .scene-card.dc .scene-city{color:#4a8ac4}
@@ -167,10 +193,8 @@ pointer-events:none;z-index:1}
 
 /* MODAL */
 
-.modal-hero-photo{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;z-index:1;opacity:0;transition:opacity .4s ease}
-.modal-hero-photo.loaded{opacity:1}
 .modal-hero-spotify{width:100%;margin-bottom:12px;background:#1a1a1a}
-.modal-hero{width:100%;height:280px;background:#1a1a1a;position:relative;overflow:hidden;margin-bottom:20px}
+.modal-hero{width:100%;height:200px;background:#1a1a1a;position:relative;overflow:hidden;margin-bottom:20px}
 .modal-hero-overlay{position:absolute;bottom:0;left:0;right:0;padding:24px;background:linear-gradient(transparent,rgba(0,0,0,.95));z-index:2}
 .modal-hero-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1a1a1a 0%,#2a1a1a 50%,#1a1a2a 100%)}
 .modal-hero-placeholder span{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,6vw,4rem);color:rgba(196,30,30,.15);letter-spacing:8px;text-transform:uppercase;text-align:center;padding:0 20px}
@@ -213,6 +237,8 @@ pointer-events:none;z-index:1}
 .disc-links a:hover{border-color:var(--white);background:rgba(255,255,255,.05)}
 .disc-links a.sp{border-color:#1DB954;color:#1DB954}
 .disc-links a.sp:hover{background:rgba(29,185,84,.1)}
+.disc-links a.yt-search{border-color:#ff4444;color:#ff4444}
+.disc-links a.yt-search:hover{background:rgba(255,68,68,.1)}
 
 .disc-embed{margin-top:10px}
 .disc-embed iframe{border:none;width:100%;border-radius:8px}
@@ -243,19 +269,17 @@ pointer-events:none;z-index:1}
 .global-ask-title{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:#4a9;letter-spacing:2px}
 .global-ask-sub{font-size:.85rem;color:#777;margin-top:4px}
 
-/* SCENE FILTERS */
-.scene-filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
-.scene-filter-btn{display:flex;align-items:center;gap:8px;padding:10px 16px;background:rgba(25,25,25,.9);border:1px solid #333;cursor:pointer;transition:all .25s;user-select:none}
-.scene-filter-btn:hover{border-color:#666;background:rgba(40,40,40,.9)}
-.scene-filter-btn.active{border-color:var(--filter-color);box-shadow:0 0 10px rgba(var(--filter-rgb),.3);background:rgba(var(--filter-rgb),.1)}
-.scene-filter-btn.dimmed{opacity:.3}
-.scene-filter-dot{width:14px;height:14px;border-radius:50%;flex-shrink:0}
-.scene-filter-name{font-family:'Oswald',sans-serif;font-size:1rem;color:var(--white);letter-spacing:1px;text-transform:uppercase}
-.scene-filter-count{font-family:'Space Mono',monospace;font-size:.8rem;color:#666;margin-left:auto}
-
 /* INTERACTIVE MAP */
 .map-container{position:relative}
-#punk-map{width:100%;height:560px;background:#0a0a0a;border:1px solid #222;margin-bottom:16px}
+#punk-map{width:100%;height:500px;background:#0a0a0a;border:1px solid #222}
+.map-nav-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;gap:8px;flex-wrap:wrap}
+.map-view-buttons{display:flex;flex-wrap:wrap;gap:4px}
+.map-view-btn{background:rgba(30,30,30,.9);border:1px solid #333;color:#999;font-family:'Space Mono',monospace;font-size:.8rem;padding:6px 12px;cursor:pointer;transition:all .2s;text-transform:uppercase;letter-spacing:1px}
+.map-view-btn:hover{border-color:var(--red);color:var(--white)}
+.map-view-btn.active{background:var(--red);border-color:var(--red);color:var(--white)}
+.map-zoom-buttons{display:flex;gap:4px}
+.map-zoom-btn{background:rgba(30,30,30,.9);border:1px solid #333;color:var(--white);font-family:'Bebas Neue',sans-serif;font-size:1.4rem;width:40px;height:40px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;line-height:1}
+.map-zoom-btn:hover{background:var(--red);border-color:var(--red)}
 .map-controls{background:rgba(20,20,20,.95);border:1px solid #222;padding:20px;margin-bottom:16px}
 .map-slider-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
 .map-slider-label{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--yellow);min-width:120px;text-align:center}
@@ -263,8 +287,7 @@ pointer-events:none;z-index:1}
 .map-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:20px;height:20px;background:var(--red);border-radius:50%;cursor:pointer;border:2px solid var(--white)}
 .map-slider::-moz-range-thumb{width:20px;height:20px;background:var(--red);border-radius:50%;cursor:pointer;border:2px solid var(--white)}
 .map-year-markers{display:flex;justify-content:space-between;padding:0 10px;margin-top:4px}
-.map-year-markers span{font-size:.75rem;color:#555;font-family:'Space Mono',monospace;cursor:pointer;transition:color .2s}
-.map-year-markers span:hover{color:var(--red)}
+.map-year-markers span{font-size:.75rem;color:#555;font-family:'Space Mono',monospace}
 .map-stats{display:flex;gap:20px;margin-top:12px;flex-wrap:wrap}
 .map-stat{font-size:.95rem;color:#aaa;font-family:'Space Mono',monospace}
 .map-stat strong{color:var(--red)}
@@ -274,14 +297,23 @@ pointer-events:none;z-index:1}
 .map-legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px;padding-top:12px;border-top:1px solid #222}
 .map-legend-item{display:flex;align-items:center;gap:6px;font-size:.85rem;color:#aaa}
 .map-legend-dot{width:12px;height:12px;border-radius:50%;border:2px solid rgba(0,0,0,.3)}
+.map-scene-filters{margin-top:14px;padding-top:14px;border-top:1px solid #222}
+.map-filter-label{font-size:.85rem;color:#777;margin-bottom:8px;font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:2px}
+.map-filter-chips{display:flex;flex-wrap:wrap;gap:6px}
+.map-filter-chip{padding:6px 14px;font-size:.85rem;font-family:'Space Mono',monospace;border:1px solid #444;color:#aaa;cursor:pointer;transition:all .2s;background:transparent;display:flex;align-items:center;gap:6px}
+.map-filter-chip:hover{border-color:var(--white);color:var(--white)}
+.map-filter-chip.active{color:var(--white);border-color:var(--white)}
+.map-filter-chip .chip-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.map-filter-chip.active .chip-dot{box-shadow:0 0 6px currentColor}
+.map-filter-chip-all{padding:6px 14px;font-size:.85rem;font-family:'Oswald',sans-serif;border:1px solid var(--red);color:var(--red);cursor:pointer;transition:all .2s;background:transparent;text-transform:uppercase;letter-spacing:1px}
+.map-filter-chip-all:hover{background:var(--red);color:var(--white)}
+.map-filter-chip-all.active{background:var(--red);color:var(--white)}
 .leaflet-popup-content-wrapper{background:#1a1a1a!important;color:var(--white)!important;border:1px solid #333!important;border-radius:0!important;font-family:'Space Mono',monospace!important}
 .leaflet-popup-tip{background:#1a1a1a!important}
 .leaflet-popup-content{font-size:.9rem!important;line-height:1.5!important}
 .popup-band{cursor:pointer;color:var(--red);text-decoration:none;display:block;padding:2px 0;transition:color .2s}
 .popup-band:hover{color:var(--yellow)}
-@keyframes pulse-ring{0%{transform:scale(1);opacity:.6}100%{transform:scale(1.8);opacity:0}}
-.pulse-marker{animation:pulse-ring 2s ease-out infinite}
-.leaflet-control-zoom a{background:#1a1a1a!important;color:var(--white)!important;border-color:#333!important}
+.leaflet-control-zoom{display:none!important}
 
 /* FOOTER */
 .foot{text-align:center;padding:36px;font-size:.9rem;color:#555;border-top:1px solid #1a1a1a;margin-top:40px;letter-spacing:2px;text-transform:uppercase}
@@ -292,13 +324,133 @@ pointer-events:none;z-index:1}
 ::-webkit-scrollbar-thumb{background:#444}
 ::-webkit-scrollbar-thumb:hover{background:var(--red)}
 
-@media(max-width:600px){
-.hero h1{letter-spacing:2px}
-.nav button{font-size:.9rem;padding:8px 12px}
-.panel{padding:18px}
-.bands-list,.album-grid{grid-template-columns:1fr}
-.bar-label{width:90px;font-size:.85rem}
+/* MOBILE OPTIMIZATION */
+@media(max-width:768px){
+.hero{min-height:240px}
+.hero-content{padding:28px 16px 24px}
+.hero h1{font-size:3rem;letter-spacing:2px}
+.hero .sub{font-size:.9rem;letter-spacing:4px}
+.hero .tagline{font-size:.85rem}
+.hero-eyebrow{font-size:.75rem;letter-spacing:3px}
+.hero-stats-row{gap:16px;margin-top:16px}
+.hero-stat-num{font-size:1.6rem}
+.hero-stat-label{font-size:.7rem}
+.hero-bg-svg{display:none}
+
+.nav{gap:4px;padding:12px 8px}
+.nav::before{font-size:.6rem;letter-spacing:3px;margin-bottom:4px}
+.nav button{font-size:.8rem;padding:8px 12px;letter-spacing:1px}
+
+.panel{padding:12px}
+.section-head{font-size:1.6rem;gap:8px}
+.section-icon{font-size:1.2rem}
+
+/* Mobile Map */
+#punk-map{height:350px}
+.map-controls{padding:12px}
+.map-slider-row{flex-direction:column;gap:8px}
+.map-slider-label{font-size:1.4rem}
+.map-play-btn{margin-left:0;width:100%}
+.map-year-markers{padding:0 4px}
+.map-year-markers span{font-size:.65rem}
+.map-stats{flex-direction:column;gap:6px}
+.map-stat{font-size:.85rem}
+.map-legend{gap:8px}
+.map-legend-item{font-size:.75rem}
+.map-scene-filters{padding-top:10px;margin-top:10px}
+.map-filter-label{font-size:.75rem}
+.map-filter-chips{gap:4px}
+.map-filter-chip{font-size:.7rem;padding:5px 8px}
+.map-filter-chip-all{font-size:.7rem;padding:5px 8px}
+.map-nav-row{flex-direction:column;gap:6px}
+.map-view-buttons{gap:3px;justify-content:center}
+.map-view-btn{font-size:.65rem;padding:5px 8px;letter-spacing:0}
+.map-zoom-buttons{justify-content:center}
+.map-zoom-btn{width:36px;height:36px;font-size:1.2rem}
+
+/* Mobile Timeline */
+.timeline{padding-left:28px}
+.timeline::before{left:8px}
+.tl-item{padding:14px;margin-bottom:18px}
+.tl-item::before{left:-24px;width:10px;height:10px}
+.tl-year{font-size:1.5rem}
+.tl-text{font-size:.9rem}
+.tl-tag{font-size:.75rem;padding:3px 8px}
+
+/* Mobile Scene Cards */
 .scene-grid,.subgenre-grid{grid-template-columns:1fr}
+.scene-card{padding:16px}
+.scene-city{font-size:1.5rem}
+.scene-era{font-size:.8rem}
+.scene-desc{font-size:.85rem}
+.scene-bands span{font-size:.75rem;padding:3px 6px}
+.scene-label{font-size:.75rem}
+.scene-label-name{font-size:.85rem}
+
+/* Mobile Bands */
+.band-filters{flex-direction:column;gap:6px}
+.band-filters select,.band-filters input{width:100%;font-size:.85rem}
+.bands-list{grid-template-columns:1fr;gap:10px}
+.band-entry{padding:14px;gap:12px}
+.band-icon{width:44px;height:44px;font-size:1.1rem}
+.band-info h3{font-size:1rem}
+.band-info .band-meta{font-size:.8rem}
+.band-info .band-album{font-size:.85rem}
+.band-info .band-tags span{font-size:.7rem}
+
+/* Mobile Subgenres */
+.subgenre-card{padding:16px}
+.sg-name{font-size:1.4rem}
+.sg-era{font-size:.8rem}
+.sg-desc{font-size:.85rem}
+.sg-bands{font-size:.85rem}
+
+/* Mobile Albums */
+.album-grid{grid-template-columns:1fr;gap:10px}
+.album-decade-toggle{flex-wrap:wrap;gap:6px}
+.album-decade-toggle button{font-size:.85rem;padding:6px 14px}
+.album-card{padding:14px}
+.album-card h4{font-size:1rem}
+.album-card .album-artist{font-size:.85rem}
+.album-card .album-note{font-size:.85rem}
+
+/* Mobile Stats */
+.stats-row{grid-template-columns:repeat(2,1fr);gap:8px}
+.stat-num{font-size:2rem}
+.stat-label{font-size:.75rem}
+.bar-row{gap:8px;margin-bottom:10px}
+.bar-label{width:80px;font-size:.8rem}
+.bar-track{height:26px}
+.bar-fill::after{font-size:.75rem}
+
+/* Mobile Modal */
+.modal-overlay.open{padding:0}
+.modal{padding:16px;max-width:100%;min-height:100vh}
+.modal-close{top:8px;right:12px;font-size:2rem;z-index:10;background:rgba(0,0,0,.5);width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:50%}
+.modal-hero-spotify iframe{height:280px!important}
+.modal-band{font-size:1.6rem}
+.modal-band-loc{font-size:.85rem}
+.modal-section{font-size:1rem;margin:16px 0 10px}
+.disc-item{padding:10px}
+.disc-title{font-size:.95rem}
+.disc-links{gap:6px}
+.disc-links a{font-size:.8rem;padding:5px 10px}
+.disc-embed iframe{height:120px!important}
+.related-grid{gap:5px}
+.related-chip{font-size:.8rem;padding:5px 10px}
+.ai-section{margin-top:16px}
+.ai-buttons{gap:6px}
+.ai-btn{font-size:.8rem;padding:6px 12px}
+}
+
+/* Extra small screens */
+@media(max-width:400px){
+.hero h1{font-size:2.2rem}
+.hero .sub{font-size:.75rem;letter-spacing:3px}
+.nav button{font-size:.7rem;padding:6px 8px}
+#punk-map{height:280px}
+.map-view-btn{font-size:.55rem;padding:4px 6px}
+.stat-num{font-size:1.6rem}
 }
 </style>
 </head>
@@ -340,8 +492,8 @@ pointer-events:none;z-index:1}
 <div class="tagline">An interactive field guide to two decades of fury, DIY, and the underground</div>
 <div class="hero-stats-row">
 <div class="hero-stat"><span class="hero-stat-num">55</span><span class="hero-stat-label">Bands</span></div>
-<div class="hero-stat"><span class="hero-stat-num">9</span><span class="hero-stat-label">Scenes</span></div>
-<div class="hero-stat"><span class="hero-stat-num">25</span><span class="hero-stat-label">Albums</span></div>
+<div class="hero-stat"><span class="hero-stat-num">8</span><span class="hero-stat-label">Scenes</span></div>
+<div class="hero-stat"><span class="hero-stat-num">26</span><span class="hero-stat-label">Albums</span></div>
 <div class="hero-stat"><span class="hero-stat-num">8</span><span class="hero-stat-label">Subgenres</span></div>
 </div>
 </div>
@@ -364,18 +516,36 @@ pointer-events:none;z-index:1}
 <div class="map-controls">
 <div class="map-slider-row">
 <div class="map-slider-label" id="map-year-display">1980</div>
-<input type="range" class="map-slider" id="map-year-slider" min="1976" max="1999" value="1980" step="1" aria-label="Timeline year">
+<input type="range" class="map-slider" id="map-year-slider" min="1976" max="1999" value="1980" step="1">
 <button class="map-play-btn" id="map-play-btn" onclick="toggleMapPlay()">&#9654; Play</button>
 </div>
-<div class="map-year-markers"><span onclick="jumpToYear(1976)">1976</span><span onclick="jumpToYear(1980)">1980</span><span onclick="jumpToYear(1985)">1985</span><span onclick="jumpToYear(1990)">1990</span><span onclick="jumpToYear(1995)">1995</span><span onclick="jumpToYear(1999)">1999</span></div>
+<div class="map-year-markers"><span>1976</span><span>1980</span><span>1985</span><span>1990</span><span>1995</span><span>1999</span></div>
 <div class="map-stats">
-<div class="map-stat">Bands active: <strong id="map-band-count">0</strong></div>
+<div class="map-stat">Bands active by <strong id="map-band-count">0</strong></div>
 <div class="map-stat">Scenes lit: <strong id="map-scene-count">0</strong></div>
 </div>
 <div class="map-legend" id="map-legend"></div>
+<div class="map-scene-filters">
+<div class="map-filter-label">Filter by Scene:</div>
+<div class="map-filter-chips" id="map-filter-chips"></div>
 </div>
-<div class="scene-filters" id="scene-filters"></div>
+</div>
 <div class="map-container">
+<div class="map-nav-row">
+<div class="map-view-buttons">
+<button class="map-view-btn active" data-region="us" onclick="setMapView('us')">US Overview</button>
+<button class="map-view-btn" data-region="northeast" onclick="setMapView('northeast')">Northeast</button>
+<button class="map-view-btn" data-region="westcoast" onclick="setMapView('westcoast')">West Coast</button>
+<button class="map-view-btn" data-region="europe" onclick="setMapView('europe')">Europe</button>
+<button class="map-view-btn" data-region="japan" onclick="setMapView('japan')">Japan</button>
+<button class="map-view-btn" data-region="south_america" onclick="setMapView('south_america')">S. America</button>
+<button class="map-view-btn" data-region="world" onclick="setMapView('world')">World</button>
+</div>
+<div class="map-zoom-buttons">
+<button class="map-zoom-btn" onclick="mapZoomIn()">+</button>
+<button class="map-zoom-btn" onclick="mapZoomOut()">&minus;</button>
+</div>
+</div>
 <div id="punk-map"></div>
 </div>
 </div>
@@ -396,7 +566,7 @@ pointer-events:none;z-index:1}
 <div class="panel" id="bands">
 <h2 class="section-head">The Roster</h2>
 <div class="band-filters">
-<select id="filter-scene"><option value="all">All Scenes</option><option value="LA">Los Angeles</option><option value="DC">Washington DC</option><option value="NY">New York</option><option value="Boston">Boston</option><option value="SF">San Francisco</option><option value="Cleveland">Cleveland</option><option value="Other US">Other US</option><option value="UK">UK</option><option value="Canada">Canada</option></select>
+<select id="filter-scene"><option value="all">All Scenes</option><option value="LA">Los Angeles</option><option value="DC">Washington DC</option><option value="NY">New York</option><option value="Boston">Boston</option><option value="SF">San Francisco</option><option value="Cleveland">Cleveland</option><option value="OC">Orange County</option><option value="NJ">New Jersey</option><option value="Philly">Philadelphia</option><option value="San Diego">San Diego</option><option value="Seattle">Seattle</option><option value="Midwest">Midwest</option><option value="NOLA">New Orleans</option><option value="Richmond">Richmond</option><option value="El Paso">El Paso</option><option value="Baltimore">Baltimore</option><option value="Japan">Japan</option><option value="Italy">Italy</option><option value="Sweden">Sweden</option><option value="Brazil">Brazil</option><option value="Finland">Finland</option><option value="Other US">Other US</option><option value="UK">UK</option><option value="Canada">Canada</option></select>
 <select id="filter-era"><option value="all">All Eras</option><option value="80s">1980-1989</option><option value="90s">1990-1999</option></select>
 <input type="text" id="filter-search" placeholder="Search bands...">
 </div>
@@ -491,7 +661,19 @@ const scenesData = [
 {city:"Boston",cls:"boston",era:"Epicenter: 1981-1988 / 1998-2003",desc:"Boston took straight edge and ran with it harder than anyone. The early scene was militant, insular, and incredibly unified. A second wave in the late '90s produced some of the most innovative bands in modern hardcore history.",bands:["SS Decontrol","DYS","Gang Green","Slapshot","Converge","American Nightmare","Bane","Cave In","The Hope Conspiracy","Siege"],label:"Taang! Records, Deathwish Inc."},
 {city:"San Francisco / NorCal",cls:"sf",era:"Epicenter: 1978-1986",desc:"Dead Kennedys put SF on the map with razor-sharp political satire. The Not So Quiet on the Western Front compilation showcased the broader NorCal scene. Flipper slowed things down with sludgy, bass-driven noise. Maximumrocknroll zine became a global punk institution.",bands:["Dead Kennedys","Flipper","MDC","Code of Honor","Crucifix","Spazz","Neurosis"],label:"Alternative Tentacles, Lookout!"},
 {city:"Cleveland / NE Ohio",cls:"cleveland",era:"Epicenter: 1981-1984 / 1988-1996",desc:"Built on the proto-punk legacy of the Pagans, Dead Boys, and Pere Ubu, Cleveland's hardcore scene was scrappy and insular in the early '80s, with The Guns and The Dark pioneering all-ages shows and a regional compilation (The New Hope, 1983). The second wave in the late '80s and '90s produced Integrity and Ringworm, who forged a uniquely dark, metallic style sometimes called \"holy terror\" or \"negative hardcore\" that became one of metalcore's most important blueprints. The Rust Belt's industrial decay fed directly into the music's apocalyptic tone.",bands:["Integrity","Ringworm","The Dark","The Guns","Confront","Face Value","9 Shocks Terror","Outface","Zero Defex","In Cold Blood"],label:"Dark Empire, Victory Records, Incision"},
-{city:"United Kingdom",cls:"uk",era:"Epicenter: 1980-1986",desc:"UK hardcore drew from both American influence and the anarcho-punk tradition of Crass. Discharge invented d-beat, a drumming style so distinctive it spawned a global subgenre. The scene was deeply anti-war and anti-NATO.",bands:["Discharge","GBH","Chaos UK","Disorder","The Varukers","Napalm Death","Heresy","Extreme Noise Terror"],label:"Clay Records, Earache Records"}
+{city:"United Kingdom",cls:"uk",era:"Epicenter: 1980-1986",desc:"UK hardcore drew from both American influence and the anarcho-punk tradition of Crass. Discharge invented d-beat, a drumming style so distinctive it spawned a global subgenre. The scene was deeply anti-war and anti-NATO.",bands:["Discharge","GBH","Chaos UK","Disorder","The Varukers","Napalm Death","Heresy","Extreme Noise Terror"],label:"Clay Records, Earache Records"},
+{city:"Orange County, CA",cls:"oc",era:"Epicenter: 1978-1986",desc:"Distinct from LA, Orange County's scene was tied to surf culture and skateboarding. The Adolescents, Agent Orange, Social Distortion, and TSOL created a sound that blended melodic hooks with hardcore aggression. Nardcore (Oxnard HC) was a notable sub-scene.",bands:["Adolescents","Social Distortion","TSOL","Agent Orange","Vandals","China White"],label:"Frontier, Posh Boy, Nitro"},
+{city:"New Jersey",cls:"nj",era:"Epicenter: 1977-1995",desc:"Often overshadowed by NYC across the river, NJ produced the Misfits (horror punk pioneers), and later Rorschach and Bouncing Souls. The NJ/NY border was porous, with bands playing both scenes constantly.",bands:["Misfits","Rorschach","Bouncing Souls","E-Town Concrete"],label:"Plan 9, Gern Blandsten"},
+{city:"Philadelphia",cls:"philly",era:"Epicenter: 1981-1999",desc:"Philly's scene was raw and uncompromising. YDI and Flag of Democracy were early pioneers. In the '90s, Starkweather pushed metalcore boundaries. The scene stayed DIY-rooted with a reputation for intense shows.",bands:["YDI","Flag of Democracy","Starkweather","Paint It Black","McRad"],label:"Jade Tree, Relapse"},
+{city:"San Diego",cls:"sd",era:"Epicenter: 1990-1997",desc:"San Diego's Gravity Records scene birthed screamo and some of the most adventurous post-hardcore of the '90s. Drive Like Jehu, Heroin, and Antioch Arrow pushed hardcore into dissonant, chaotic territory that influenced a generation.",bands:["Drive Like Jehu","Heroin","Antioch Arrow","Swing Kids","Unbroken"],label:"Gravity Records, Interscope"},
+{city:"Seattle / Pacific NW",cls:"seattle",era:"Epicenter: 1981-1993",desc:"Before grunge, Seattle had a fierce hardcore scene. The Accused and Brotherhood held it down in the '80s. The line between HC and what became 'grunge' was blurry: many grunge musicians came directly from the punk scene.",bands:["The Accused","Brotherhood","Zeke","Poison Idea"],label:"C/Z Records, Empty Records"},
+{city:"Midwest (Chicago / Indy / Detroit)",cls:"midwest",era:"Epicenter: 1980-1988",desc:"The Midwest produced some of the most ferocious early hardcore. Touch and Go Records (Detroit) was a crucial label. Necros, Negative Approach, Zero Boys, Die Kreuzen, and Articles of Faith defined a raw, no-frills sound. Chicago later produced Big Black and Naked Raygun.",bands:["Necros","Zero Boys","Die Kreuzen","Articles of Faith","Big Black","Naked Raygun","Toxic Reasons"],label:"Touch and Go, Affinity"},
+{city:"New Orleans / South",cls:"nola",era:"Epicenter: 1988-1996",desc:"New Orleans fused hardcore's aggression with doom metal's weight to create sludge metal. Eyehategod and Crowbar played crushing, detuned music soaked in the city's heavy atmosphere. Corrosion of Conformity from Raleigh bridged Southern HC and metal.",bands:["Eyehategod","Crowbar","Corrosion of Conformity","Soilent Green","Acid Bath"],label:"Century Media, Rotten Records"},
+{city:"Japan (Tokyo)",cls:"japan",era:"Epicenter: 1981-1990",desc:"Japan's hardcore scene was among the most extreme anywhere. GISM combined punk with metal and noise into something genuinely terrifying. Gauze and Lip Cream played blisteringly fast thrash. The scene was insular but globally revered.",bands:["GISM","Gauze","Lip Cream","Bastard","Systematic Death"],label:"Dogma, City Rocker"},
+{city:"Italy",cls:"italy",era:"Epicenter: 1979-1988",desc:"Italian hardcore was deeply political, anti-war, and anti-NATO. Inspired by UK anarcho-punk (Crass, Discharge), bands like Wretched and Raw Power created a fierce European HC tradition. Many sang in Italian.",bands:["Wretched","Raw Power","Negazione","Declino","Indigesti"],label:"Blu Bus, Attack Punk"},
+{city:"Sweden",cls:"sweden",era:"Epicenter: 1981-1998",desc:"Sweden refined d-beat into a global force via Anti Cimex and Mob 47. In the '90s, Umea produced Refused, whose final album deconstructed hardcore entirely. Swedish HC had a distinctive raw, buzzing guitar tone.",bands:["Anti Cimex","Mob 47","Refused","Totalitar","Disfear"],label:"Burning Heart, Distortion"},
+{city:"Brazil (Sao Paulo)",cls:"brazil",era:"Epicenter: 1981-1990",desc:"Sao Paulo's hardcore scene was one of the largest outside the US/UK. Ratos de Porao and Olho Seco played ferocious, politically charged punk reflecting Brazil's social turmoil under military dictatorship.",bands:["Ratos de Porao","Olho Seco","Garotos Podres","Inocentes"],label:"Cogumelo, Punk Rock Discos"},
+{city:"Richmond, VA",cls:"richmond",era:"Epicenter: 1987-2001",desc:"Richmond became a melodic hardcore hotspot in the '90s. Avail's passionate, anthemic style and Strike Anywhere's politically charged punk drew fans nationwide. Lamb of God also emerged from the Richmond metal/HC crossover.",bands:["Avail","Strike Anywhere","Inquisition","Municipal Waste"],label:"Lookout!, Jade Tree"}
 ];
 
 
@@ -551,88 +733,136 @@ const bandRelated = {
 "Murphy\'s Law":["Agnostic Front","Cro-Mags","Warzone","Leeway","Carnivore"],
 "Warzone":["Agnostic Front","Madball","Sick of It All","Youth of Today","Cro-Mags"],
 "Napalm Death":["Discharge","Carcass","Bolt Thrower","Terrorizer","Extreme Noise Terror"],
-"American Nightmare":["Bane","Converge","The Hope Conspiracy","Some Girls","Panic"]
+"American Nightmare":["Bane","Converge","The Hope Conspiracy","Some Girls","Panic"],
+
+"Adolescents":["Agent Orange","TSOL","Circle Jerks","Social Distortion","China White"],
+"Social Distortion":["Adolescents","TSOL","X","Bad Religion","Rancid"],
+"TSOL":["Adolescents","Social Distortion","Agent Orange","Christian Death","45 Grave"],
+"Agent Orange":["Adolescents","Descendents","Circle Jerks","TSOL","Vandals"],
+"Drive Like Jehu":["Heroin","Antioch Arrow","Quicksand","Fugazi","Hot Snakes"],
+"Heroin":["Antioch Arrow","Drive Like Jehu","Swing Kids","Indian Summer","Moss Icon"],
+"Antioch Arrow":["Heroin","Swing Kids","Drive Like Jehu","Angel Hair","Portraits of Past"],
+"Rorschach":["Born Against","Deadguy","Kiss It Goodbye","Starkweather","Converge"],
+"Bouncing Souls":["Lifetime","Misfits","Slapshot","H2O","Kid Dynamite"],
+"YDI":["Flag of Democracy","Agnostic Front","Negative Approach","Necros","McRad"],
+"Flag of Democracy":["YDI","Starkweather","McRad","Charged GBH","Siege"],
+"Paint It Black":["Kid Dynamite","Lifetime","Strike Anywhere","Bane","Good Riddance"],
+"Starkweather":["Rorschach","Converge","Integrity","Today Is the Day","Deadguy"],
+"The Accused":["D.R.I.","Poison Idea","Cryptic Slaughter","Bl\'ast!","Zeke"],
+"Brotherhood":["SS Decontrol","Youth of Today","Judge","Uniform Choice","Chain of Strength"],
+"Zero Boys":["Necros","Toxic Reasons","Die Kreuzen","Negative Approach","Articles of Faith"],
+"Necros":["Negative Approach","Zero Boys","Die Kreuzen","The Fix","Meatmen"],
+"Die Kreuzen":["Necros","Negative Approach","Husker Du","Zero Boys","Killdozer"],
+"Toxic Reasons":["Zero Boys","MDC","Articles of Faith","Necros","Effigies"],
+"Articles of Faith":["Naked Raygun","Big Black","Zero Boys","Necros","Effigies"],
+"Big Black":["Naked Raygun","Shellac","Rapeman","Jesus Lizard","Killdozer"],
+"Naked Raygun":["Articles of Faith","Big Black","Effigies","Pegboy","Los Crudos"],
+"Eyehategod":["Crowbar","Corrosion of Conformity","Buzzoven","Acid Bath","Down"],
+"Crowbar":["Eyehategod","Down","Corrosion of Conformity","Pantera","Soilent Green"],
+"Corrosion of Conformity":["D.R.I.","Eyehategod","Crowbar","Suicidal Tendencies","Cro-Mags"],
+"GISM":["Gauze","Lip Cream","Discharge","Bastard","G.B.H."],
+"Gauze":["GISM","Lip Cream","Systematic Death","Bastard","Discharge"],
+"Lip Cream":["Gauze","GISM","Discharge","Anti Cimex","Bastard"],
+"Wretched":["Raw Power","Negazione","Discharge","Crass","Declino"],
+"Raw Power":["Wretched","Negazione","GBH","Discharge","Negative Approach"],
+"Negazione":["Wretched","Raw Power","Indigesti","Declino","Discharge"],
+"Anti Cimex":["Mob 47","Discharge","Totalitar","Disfear","Skitsystem"],
+"Mob 47":["Anti Cimex","Totalitar","Discharge","Crude SS","Asocial"],
+"Ratos de Porao":["Olho Seco","D.R.I.","Discharge","Garotos Podres","Sepultura"],
+"Olho Seco":["Ratos de Porao","Garotos Podres","Inocentes","Colera","Lixomania"],
+"Terveet Kadet":["Discharge","Anti Cimex","Rattus","Bastards","Riistetyt"],
+"Avail":["Strike Anywhere","Hot Water Music","Leatherface","Dag Nasty","Jawbreaker"],
+"Strike Anywhere":["Avail","Paint It Black","Good Riddance","Propagandhi","Rise Against"],
+"At the Drive-In":["Refused","Drive Like Jehu","Fugazi","Quicksand","The Mars Volta"],
+"Propagandhi":["D.O.A.","NOFX","Bad Religion","Refused","Subhumans"],
+"Lungfish":["Fugazi","Hoover","Slint","Rodan","June of 44"],
+"Minutemen":["Saccharine Trust","Meat Puppets","Husker Du","Wire","Gang of Four"],
+"Fear":["Black Flag","Circle Jerks","Vandals","TSOL","Germs"],
+"Quicksand":["Gorilla Biscuits","Bold","Into Another","Fugazi","Helmet"],
+"Born Against":["Rorschach","Avail","Los Crudos","Nation of Ulysses","Econochrist"],
+"Jawbox":["Fugazi","Quicksand","Shudder to Think","Jawbreaker","Burning Airlines"]
+
 };
 
 const bandsData=[
-{name:"Black Flag",scene:"LA",era:"80s",formed:"1976",loc:"Hermosa Beach, CA",album:"Damaged (1981)",tags:["hardcore","SST","Henry Rollins"],artistSpotify:"5Mhs3Eu8lU6sRCtRYsmABV",discog:[
+{name:"Black Flag",scene:"LA",era:"80s",formed:"1976",loc:"Hermosa Beach, CA",album:"Damaged (1981)",tags:["hardcore","SST","Henry Rollins"],discog:[
 {title:"Damaged",year:1981,spotify:"34aFnrFRBlErcbU6moRZR3",apple:"damaged/1440833837",yt:"lGBFGHNGOhQ"},
 {title:"My War",year:1984,spotify:"2bPBJRyKMiIJjKqJfPo3J3",apple:"my-war/1440833954",yt:"xyVO3rMIpas"},
 {title:"Slip It In",year:1984,spotify:"6Ypb8MiivhiUYEOSbIPVXZ",apple:"slip-it-in/1440834028",yt:""},
 {title:"Loose Nut",year:1985,spotify:"2pZVxM2cH4ygRjFQi3q4pu",apple:"loose-nut/1440834086",yt:""},
 {title:"In My Head",year:1985,spotify:"0B9JmJTlVBRzmvUzAg3GhW",apple:"in-my-head/1440834139",yt:""}
 ]},
-{name:"Minor Threat",scene:"DC",era:"80s",formed:"1980",loc:"Washington, DC",album:"Minor Threat EP (1981)",tags:["straight edge","Dischord"],artistSpotify:"07PiZYrhllpSXtELkUxlrf",discog:[
+{name:"Minor Threat",scene:"DC",era:"80s",formed:"1980",loc:"Washington, DC",album:"Minor Threat EP (1981)",tags:["straight edge","Dischord"],discog:[
 {title:"Complete Discography",year:1989,spotify:"",apple:"",yt:"ix8HVHKSfMw",note:"Not on streaming; Dischord DIY principles"},
 {title:"Minor Threat EP",year:1981,spotify:"",apple:"",yt:"4lH9EV_Urxk"},
 {title:"Out of Step",year:1983,spotify:"",apple:"",yt:"FRCHPxHzqJI"}
 ]},
-{name:"Dead Kennedys",scene:"SF",era:"80s",formed:"1978",loc:"San Francisco, CA",album:"Fresh Fruit for Rotting Vegetables (1980)",tags:["political","Alt. Tentacles"],artistSpotify:"30U8fYtiNpeA5KH6H87QUV",discog:[
+{name:"Dead Kennedys",scene:"SF",era:"80s",formed:"1978",loc:"San Francisco, CA",album:"Fresh Fruit for Rotting Vegetables (1980)",tags:["political","Alt. Tentacles"],discog:[
 {title:"Fresh Fruit for Rotting Vegetables",year:1980,spotify:"5cADwrInLLhrjsXSmEPE3E",apple:"fresh-fruit-for-rotting-vegetables/1440847858",yt:"GoA_zY6tqQY"},
 {title:"Plastic Surgery Disasters",year:1982,spotify:"3dNHjKNuM71es7xox8RrtS",apple:"plastic-surgery-disasters/1440848012",yt:""},
 {title:"Frankenchrist",year:1985,spotify:"3RKPA9BpqPPwWj7jYKFLAQ",apple:"frankenchrist/1440848101",yt:""},
 {title:"Bedtime for Democracy",year:1986,spotify:"2HCOntA9tMHLrSMjFPRxjG",apple:"bedtime-for-democracy/1440847957",yt:""}
 ]},
-{name:"Bad Brains",scene:"DC",era:"80s",formed:"1977",loc:"Washington, DC",album:"Bad Brains (1982)",tags:["reggae-punk","ROIR"],artistSpotify:"1oVj9JmPUPg4SQ2uerV2xc",discog:[
-{title:"Bad Brains",year:1982,spotify:"1ot2kPDrdxMsVGBMVjxPkG",apple:"bad-brains/1400261595",yt:"UPMsVz9bPD0"},
-{title:"Rock for Light",year:1983,spotify:"0RIV1PunsGxWIiSjMnxqXF",apple:"rock-for-light/1440780095",yt:""},
+{name:"Bad Brains",scene:"DC",era:"80s",formed:"1977",loc:"Washington, DC",album:"Bad Brains (1982)",tags:["reggae-punk","ROIR"],discog:[
+{title:"Bad Brains",year:1982,spotify:"4NpepcKo9rQ8nkdCB6iWMP",apple:"bad-brains/1400261595",yt:"UPMsVz9bPD0"},
+{title:"Rock for Light",year:1983,spotify:"3L5ykuyj6QenhXBi2kAtZU",apple:"rock-for-light/1440780095",yt:""},
 {title:"I Against I",year:1986,spotify:"1sVjxEL7GBNg8MiYXOHo4y",apple:"i-against-i/1440780320",yt:"cCEkuo07GCs"},
 {title:"Quickness",year:1989,spotify:"2Q8N9KQVDSG74FEHxBFogP",apple:"quickness/1440780617",yt:""}
 ]},
-{name:"Agnostic Front",scene:"NY",era:"80s",formed:"1980",loc:"New York, NY",album:"Victim in Pain (1984)",tags:["NYHC","crossover"],artistSpotify:"3zDvanHxaETiHltPkKKYhT",discog:[
+{name:"Agnostic Front",scene:"NY",era:"80s",formed:"1980",loc:"New York, NY",album:"Victim in Pain (1984)",tags:["NYHC","crossover"],discog:[
 {title:"Victim in Pain",year:1984,spotify:"5iFgD22doAL5P3wFaMN4pU",apple:"victim-in-pain/1587972583",yt:"jGCcHaQo0Bs"},
 {title:"Cause for Alarm",year:1986,spotify:"5MVJP4LPYEuQUgvGfQGcC7",apple:"cause-for-alarm/1587972809",yt:""},
 {title:"One Voice",year:1992,spotify:"7s0GzwY1hJABXP4y2XjZp3",apple:"one-voice/1587973009",yt:""}
 ]},
-{name:"Misfits",scene:"Other US",era:"80s",formed:"1977",loc:"Lodi, NJ",album:"Walk Among Us (1982)",tags:["horror punk","Plan 9"],artistSpotify:"1cXi8ALPQCBHZbf0EgP4Ey",discog:[
+{name:"Misfits",scene:"Other US",era:"80s",formed:"1977",loc:"Lodi, NJ",album:"Walk Among Us (1982)",tags:["horror punk","Plan 9"],discog:[
 {title:"Walk Among Us",year:1982,spotify:"6NMfV1TdqBN1WbBOxKz5oy",apple:"walk-among-us/1440809430",yt:"Vxqm4mBJJGU"},
 {title:"Earth A.D./Wolfs Blood",year:1983,spotify:"5v9UH84KQ4rJ3gQ6R5vBk3",apple:"earth-a-d-wolfs-blood/1440809669",yt:""},
 {title:"Collection I",year:1986,spotify:"4ACfi4GE3JGarOYg4KU0h4",apple:"collection-i/1443996948",yt:"HuaaFSCJNg0"}
 ]},
-{name:"Circle Jerks",scene:"LA",era:"80s",formed:"1979",loc:"LA, CA",album:"Group Sex (1980)",tags:["hardcore","Keith Morris"],artistSpotify:"4ubY8RYfXkcEqgjEMDuLYl",discog:[
+{name:"Circle Jerks",scene:"LA",era:"80s",formed:"1979",loc:"LA, CA",album:"Group Sex (1980)",tags:["hardcore","Keith Morris"],discog:[
 {title:"Group Sex",year:1980,spotify:"3dbz15me1aqrJjcUgO2d9B",apple:"group-sex/1434891596",yt:"YgiR0dzdJis"},
 {title:"Wild in the Streets",year:1982,spotify:"5hXrOjEmGRsKmMGpC44WHt",apple:"wild-in-the-streets/1434891774",yt:""},
 {title:"Golden Shower of Hits",year:1983,spotify:"3sj6J6oAJEhsVHDnaqFC6v",apple:"golden-shower-of-hits/1434891988",yt:""}
 ]},
-{name:"Bad Religion",scene:"LA",era:"80s",formed:"1980",loc:"LA, CA",album:"How Could Hell Be Any Worse? (1982)",tags:["melodic HC","Epitaph"],artistSpotify:"2yJwXpWAQOOl5XFzbCxLs9",discog:[
+{name:"Bad Religion",scene:"LA",era:"80s",formed:"1980",loc:"LA, CA",album:"How Could Hell Be Any Worse? (1982)",tags:["melodic HC","Epitaph"],discog:[
 {title:"How Could Hell Be Any Worse?",year:1982,spotify:"3mdoBeaCb2PYlRP4qbvHBt",apple:"how-could-hell-be-any-worse/1476327076",yt:"Xgyy4jEMsqY"},
 {title:"Suffer",year:1988,spotify:"6FT1PAbOqpVVNgJGYSiByE",apple:"suffer/1476327310",yt:""},
 {title:"No Control",year:1989,spotify:"3Zi7FPqQoXEHfSyBPLHx7B",apple:"no-control/1476327474",yt:"eWIjpVpqUq4"},
 {title:"Against the Grain",year:1990,spotify:"5fJVJjV6IRGJJgKl1SPN3w",apple:"against-the-grain/1476327644",yt:""}
 ]},
-{name:"Descendents",scene:"LA",era:"80s",formed:"1977",loc:"Manhattan Beach, CA",album:"Milo Goes to College (1982)",tags:["pop-punk roots","SST"],artistSpotify:"1FGH4Bh7g9W6V4fUcKZWp5",discog:[
+{name:"Descendents",scene:"LA",era:"80s",formed:"1977",loc:"Manhattan Beach, CA",album:"Milo Goes to College (1982)",tags:["pop-punk roots","SST"],discog:[
 {title:"Milo Goes to College",year:1982,spotify:"27XAvbY3YcnPLGd29GdZST",apple:"milo-goes-to-college/1442831668",yt:"NqGO6e2uz7k"},
 {title:"I Don't Want to Grow Up",year:1985,spotify:"6D0w5lpmLrDlskmY5n1fxm",apple:"i-dont-want-to-grow-up/1442831885",yt:""},
 {title:"ALL",year:1987,spotify:"3Cf5tscVSvnD4p5yKcUfhS",apple:"all/1442832025",yt:""}
 ]},
-{name:"SS Decontrol",scene:"Boston",era:"80s",formed:"1981",loc:"Boston, MA",album:"The Kids Will Have Their Say (1982)",tags:["straight edge","militant"],artistSpotify:"1fXszDYrqqb8nnasLNnG4a",discog:[
+{name:"SS Decontrol",scene:"Boston",era:"80s",formed:"1981",loc:"Boston, MA",album:"The Kids Will Have Their Say (1982)",tags:["straight edge","militant"],discog:[
 {title:"The Kids Will Have Their Say",year:1982,spotify:"",apple:"",yt:"rFOIYatwCjI",note:"Limited streaming availability"},
 {title:"Get It Away",year:1983,spotify:"",apple:"",yt:""}
 ]},
-{name:"Husker Du",scene:"Other US",era:"80s",formed:"1979",loc:"St. Paul, MN",album:"Zen Arcade (1984)",tags:["melodic","SST","post-HC"],artistSpotify:"16bN8mhtDFdegWbg0z3s10",discog:[
+{name:"Husker Du",scene:"Other US",era:"80s",formed:"1979",loc:"St. Paul, MN",album:"Zen Arcade (1984)",tags:["melodic","SST","post-HC"],discog:[
 {title:"Zen Arcade",year:1984,spotify:"0GOCjIjdGhzEcEEFyueLt1",apple:"zen-arcade/1436823543",yt:"Dn2WipdGkaI"},
 {title:"New Day Rising",year:1985,spotify:"5TIkF3CU8OdaQRfMG5v71W",apple:"new-day-rising/1436823670",yt:""},
 {title:"Flip Your Wig",year:1985,spotify:"4z0N3gDxHkIiDNKh0R4Pki",apple:"flip-your-wig/1436823780",yt:""},
 {title:"Candy Apple Grey",year:1986,spotify:"6y1KrDU7F0FCAHzHvEWgMN",apple:"candy-apple-grey/253658",yt:""}
 ]},
-{name:"Suicidal Tendencies",scene:"LA",era:"80s",formed:"1980",loc:"Venice, CA",album:"Suicidal Tendencies (1983)",tags:["crossover","thrash"],artistSpotify:"3WPKDlucMsXH6FC1XaclZC",discog:[
+{name:"Suicidal Tendencies",scene:"LA",era:"80s",formed:"1980",loc:"Venice, CA",album:"Suicidal Tendencies (1983)",tags:["crossover","thrash"],discog:[
 {title:"Suicidal Tendencies",year:1983,spotify:"2Ww2lhOR8NOt6HaQ7Rrm6H",apple:"suicidal-tendencies/1443060803",yt:"OwQmHEtmVjo"},
 {title:"Join the Army",year:1987,spotify:"3YuWOhB5fPEQKjl1hPAYOy",apple:"join-the-army/694139966",yt:""},
 {title:"How Will I Laugh Tomorrow",year:1988,spotify:"0z5JDxUNALBSo0nCYqb2a0",apple:"how-will-i-laugh-tomorrow-when-i-cant-even-smile-today/694140236",yt:""}
 ]},
-{name:"Cro-Mags",scene:"NY",era:"80s",formed:"1981",loc:"New York, NY",album:"The Age of Quarrel (1986)",tags:["NYHC","crossover"],artistSpotify:"5WCrzTQZ6S6EgebqI57Ilg",discog:[
+{name:"Cro-Mags",scene:"NY",era:"80s",formed:"1981",loc:"New York, NY",album:"The Age of Quarrel (1986)",tags:["NYHC","crossover"],discog:[
 {title:"The Age of Quarrel",year:1986,spotify:"6KuTCHmozI9TgDyam3tdSA",apple:"the-age-of-quarrel/213490860",yt:"5sDPa4NjYII"},
 {title:"Best Wishes",year:1989,spotify:"7o9Lqm3fUMtZp9sHLF9kF4",apple:"best-wishes/213495179",yt:""}
 ]},
-{name:"Youth of Today",scene:"NY",era:"80s",formed:"1985",loc:"New York, NY",album:"Break Down the Walls (1986)",tags:["youth crew","straight edge"],artistSpotify:"0DbBwI2dpYty5Tl7bdSIjL",discog:[
+{name:"Youth of Today",scene:"NY",era:"80s",formed:"1985",loc:"New York, NY",album:"Break Down the Walls (1986)",tags:["youth crew","straight edge"],discog:[
 {title:"Break Down the Walls",year:1986,spotify:"0W8Ppn8FpVCGN5FxLPHxOi",apple:"break-down-the-walls/1442621671",yt:"dnbBdPBd8a0"},
 {title:"We're Not in This Alone",year:1988,spotify:"6KIy0N32bqq2PoGWzCYCW3",apple:"were-not-in-this-alone/1442621929",yt:""}
 ]},
-{name:"Gorilla Biscuits",scene:"NY",era:"80s",formed:"1987",loc:"New York, NY",album:"Start Today (1989)",tags:["youth crew","Revelation"],artistSpotify:"4dJX4iJ0qbB4gjkeenbK2N",discog:[
+{name:"Gorilla Biscuits",scene:"NY",era:"80s",formed:"1987",loc:"New York, NY",album:"Start Today (1989)",tags:["youth crew","Revelation"],discog:[
 {title:"Start Today",year:1989,spotify:"5lgWgSdsKQkTniJuX5lGCW",apple:"start-today/1442621408",yt:"QY-ZnWAEuOQ"},
 {title:"Gorilla Biscuits EP",year:1988,spotify:"",apple:"",yt:"X_rTCm3e0D4"}
 ]},
-{name:"Fugazi",scene:"DC",era:"80s",formed:"1986",loc:"Washington, DC",album:"Repeater (1990)",tags:["post-HC","Dischord","DIY"],artistSpotify:"62sC6lUEWRjbFqXpMmOk4G",discog:[
+{name:"Fugazi",scene:"DC",era:"80s",formed:"1986",loc:"Washington, DC",album:"Repeater (1990)",tags:["post-HC","Dischord","DIY"],discog:[
 {title:"13 Songs",year:1989,spotify:"",apple:"",yt:"cMOAXm94VWo",note:"Dischord: not on major streaming"},
 {title:"Repeater",year:1990,spotify:"",apple:"",yt:"DjGIwA9aJFo"},
 {title:"Steady Diet of Nothing",year:1991,spotify:"",apple:"",yt:""},
@@ -640,147 +870,297 @@ const bandsData=[
 {title:"Red Medicine",year:1995,spotify:"",apple:"",yt:""},
 {title:"End Hits",year:1998,spotify:"",apple:"",yt:""}
 ]},
-{name:"Rites of Spring",scene:"DC",era:"80s",formed:"1984",loc:"Washington, DC",album:"Rites of Spring (1985)",tags:["emo origins","Dischord"],artistSpotify:"1FIzwiROYEiAdCClC6Kvly",discog:[
+{name:"Rites of Spring",scene:"DC",era:"80s",formed:"1984",loc:"Washington, DC",album:"Rites of Spring (1985)",tags:["emo origins","Dischord"],discog:[
 {title:"Rites of Spring",year:1985,spotify:"",apple:"",yt:"i2_qJkAOsJQ",note:"Dischord: limited streaming"}
 ]},
-{name:"Discharge",scene:"UK",era:"80s",formed:"1977",loc:"Stoke-on-Trent, UK",album:"Hear Nothing See Nothing Say Nothing (1982)",tags:["d-beat","UK82"],artistSpotify:"5SRhOM75OnwuXH8BmCxD5a",discog:[
+{name:"Discharge",scene:"UK",era:"80s",formed:"1977",loc:"Stoke-on-Trent, UK",album:"Hear Nothing See Nothing Say Nothing (1982)",tags:["d-beat","UK82"],discog:[
 {title:"Hear Nothing See Nothing Say Nothing",year:1982,spotify:"0N8BbGi3ZFII65WoEqGX3P",apple:"hear-nothing-see-nothing-say-nothing/1452461577",yt:"kSKiMbZa2RI"},
 {title:"Why",year:1981,spotify:"",apple:"",yt:"uIBlaIhi_g0"}
 ]},
-{name:"D.R.I.",scene:"Other US",era:"80s",formed:"1982",loc:"Houston, TX",album:"Dealing with It (1985)",tags:["crossover thrash","thrashcore"],artistSpotify:"6eKzDvHhJgMtcaOrvEXCTv",discog:[
+{name:"D.R.I.",scene:"Other US",era:"80s",formed:"1982",loc:"Houston, TX",album:"Dealing with It (1985)",tags:["crossover thrash","thrashcore"],discog:[
 {title:"Dealing with It",year:1985,spotify:"1dv2yJpIYxFflmq7vJ0qMN",apple:"dealing-with-it/1450254497",yt:"D1e7MJjJXEA"},
 {title:"Crossover",year:1987,spotify:"5TFsHgR1jB8iMVIKphdFii",apple:"crossover/1450254674",yt:""},
 {title:"4 of a Kind",year:1988,spotify:"2XWtHe3bQQ7O0I9aPw6q8k",apple:"4-of-a-kind/1450254820",yt:""}
 ]},
-{name:"Flipper",scene:"SF",era:"80s",formed:"1979",loc:"San Francisco, CA",album:"Generic Flipper (1982)",tags:["noise punk","sludge"],artistSpotify:"20VDXslLsXlLgSF765m1Ug",discog:[
+{name:"Flipper",scene:"SF",era:"80s",formed:"1979",loc:"San Francisco, CA",album:"Generic Flipper (1982)",tags:["noise punk","sludge"],discog:[
 {title:"Generic Flipper",year:1982,spotify:"4U9O1L51n3xjTwEBaZJUuQ",apple:"album-generic-flipper/716079883",yt:"Cn32bspArZ0"}
 ]},
-{name:"Void",scene:"DC",era:"80s",formed:"1980",loc:"Columbia, MD",album:"Faith/Void split (1982)",tags:["Dischord","thrash"],artistSpotify:"4I5KvRDQQQjApxOCTn5oJF",discog:[
+{name:"Void",scene:"DC",era:"80s",formed:"1980",loc:"Columbia, MD",album:"Faith/Void split (1982)",tags:["Dischord","thrash"],discog:[
 {title:"Faith/Void Split",year:1982,spotify:"",apple:"",yt:"_xJY9YOLTss",note:"Dischord: limited streaming"}
 ]},
-{name:"Negative Approach",scene:"Other US",era:"80s",formed:"1981",loc:"Detroit, MI",album:"Tied Down (1983)",tags:["midwest HC","Touch and Go"],artistSpotify:"1DijMV2W1I2CfGLcarzgav",discog:[
+{name:"Negative Approach",scene:"Other US",era:"80s",formed:"1981",loc:"Detroit, MI",album:"Tied Down (1983)",tags:["midwest HC","Touch and Go"],discog:[
 {title:"Tied Down",year:1983,spotify:"2AVLV8VYjMOYBV5TwrPFLJ",apple:"tied-down/1443504820",yt:"x9J65j2GNzw"}
 ]},
-{name:"D.O.A.",scene:"Canada",era:"80s",formed:"1978",loc:"Vancouver, BC",album:"Hardcore '81 (1981)",tags:["coined HC","Canadian"],artistSpotify:"3g92p1YpivbOqVLiYVd4Yk",discog:[
+{name:"D.O.A.",scene:"Canada",era:"80s",formed:"1978",loc:"Vancouver, BC",album:"Hardcore '81 (1981)",tags:["coined HC","Canadian"],discog:[
 {title:"Hardcore '81",year:1981,spotify:"5Mg1n53Z09DyLp5Yxan2bU",apple:"hardcore-81/1581513816",yt:"xIxhO-i68EM"},
 {title:"War on 45",year:1982,spotify:"",apple:"",yt:""}
 ]},
-{name:"GBH",scene:"UK",era:"80s",formed:"1978",loc:"Birmingham, UK",album:"City Baby Attacked by Rats (1982)",tags:["UK82","street punk"],artistSpotify:"0yqupKw0GMDWXHpsxCPysY",discog:[
+{name:"GBH",scene:"UK",era:"80s",formed:"1978",loc:"Birmingham, UK",album:"City Baby Attacked by Rats (1982)",tags:["UK82","street punk"],discog:[
 {title:"City Baby Attacked by Rats",year:1982,spotify:"5LSR15kYBbpBh1Y4bNfZ2c",apple:"city-baby-attacked-by-rats/1451509714",yt:"YwhBudJOcYY"},
 {title:"City Baby's Revenge",year:1984,spotify:"",apple:"",yt:""}
 ]},
-{name:"Sick of It All",scene:"NY",era:"80s",formed:"1986",loc:"Queens, NY",album:"Blood, Sweat, and No Tears (1989)",tags:["NYHC","Revelation"],artistSpotify:"1Px6nQCyIRM4Gj0tyvZ1TU",discog:[
+{name:"Sick of It All",scene:"NY",era:"80s",formed:"1986",loc:"Queens, NY",album:"Blood, Sweat, and No Tears (1989)",tags:["NYHC","Revelation"],discog:[
 {title:"Blood, Sweat, and No Tears",year:1989,spotify:"26ZvHI6k1bNl9bnj13pswl",apple:"blood-sweat-and-no-tears/1442623142",yt:"pNPLiGSFMPU"},
 {title:"Just Look Around",year:1992,spotify:"0nVLbHpaFAGhEQ2hB1daCT",apple:"just-look-around/1443538003",yt:""}
 ]},
-{name:"Bold",scene:"NY",era:"80s",formed:"1986",loc:"New York, NY",album:"Speak Out (1988)",tags:["youth crew","straight edge"],artistSpotify:"18TAmMhE82KJZDg3lnrB5r",discog:[
+{name:"Bold",scene:"NY",era:"80s",formed:"1986",loc:"New York, NY",album:"Speak Out (1988)",tags:["youth crew","straight edge"],discog:[
 {title:"Speak Out",year:1988,spotify:"3ABYFjS6YXOVCVlh2AWBXB",apple:"speak-out/1442621197",yt:"eBj1hVFGb0k"}
 ]},
-{name:"Dag Nasty",scene:"DC",era:"80s",formed:"1985",loc:"Washington, DC",album:"Can I Say (1986)",tags:["melodic HC","Dischord"],artistSpotify:"2KytjqKNcs59u2JaCKNT9E",discog:[
+{name:"Dag Nasty",scene:"DC",era:"80s",formed:"1985",loc:"Washington, DC",album:"Can I Say (1986)",tags:["melodic HC","Dischord"],discog:[
 {title:"Can I Say",year:1986,spotify:"",apple:"",yt:"cI-5EfXYmo0",note:"Dischord: limited streaming"},
 {title:"Wig Out at Denko's",year:1987,spotify:"",apple:"",yt:""}
 ]},
-{name:"DYS",scene:"Boston",era:"80s",formed:"1981",loc:"Boston, MA",album:"Brotherhood (1983)",tags:["straight edge","Boston HC"],artistSpotify:"6r3rRE4Pn2QTfzzuJP0Lv4",discog:[
+{name:"DYS",scene:"Boston",era:"80s",formed:"1981",loc:"Boston, MA",album:"Brotherhood (1983)",tags:["straight edge","Boston HC"],discog:[
 {title:"Brotherhood",year:1983,spotify:"",apple:"",yt:"R7FxqL3GNLQ"}
 ]},
-{name:"7 Seconds",scene:"Other US",era:"80s",formed:"1980",loc:"Reno, NV",album:"The Crew (1984)",tags:["positive HC","straight edge"],artistSpotify:"1ByqGbfU0crCY2zEr0U8Sv",discog:[
+{name:"7 Seconds",scene:"Other US",era:"80s",formed:"1980",loc:"Reno, NV",album:"The Crew (1984)",tags:["positive HC","straight edge"],discog:[
 {title:"The Crew",year:1984,spotify:"4jrUwbBQC02V2aFbN3LmWj",apple:"the-crew/1443508107",yt:"8bhmGR02nII"},
 {title:"Walk Together, Rock Together",year:1985,spotify:"",apple:"",yt:""}
 ]},
-{name:"MDC",scene:"SF",era:"80s",formed:"1979",loc:"Austin/SF",album:"Millions of Dead Cops (1982)",tags:["political","thrash"],artistSpotify:"5JQSncL9xdFUl0FrdYMWV0",discog:[
+{name:"MDC",scene:"SF",era:"80s",formed:"1979",loc:"Austin/SF",album:"Millions of Dead Cops (1982)",tags:["political","thrash"],discog:[
 {title:"Millions of Dead Cops",year:1982,spotify:"0R9Tbs9kEKFjJFGtZhGCYH",apple:"millions-of-dead-cops/1443511073",yt:"JB_jgVOiQ3s"}
 ]},
-{name:"Gang Green",scene:"Boston",era:"80s",formed:"1981",loc:"Boston, MA",album:"Another Wasted Night (1986)",tags:["Boston HC","thrash-pop"],artistSpotify:"4gfM529Pq1Qxrc40MfJmge",discog:[
+{name:"Gang Green",scene:"Boston",era:"80s",formed:"1981",loc:"Boston, MA",album:"Another Wasted Night (1986)",tags:["Boston HC","thrash-pop"],discog:[
 {title:"Another Wasted Night",year:1986,spotify:"3JqYlrgPkIlBvVEjDSQBme",apple:"another-wasted-night/1434836050",yt:""}
 ]},
-{name:"Converge",scene:"Boston",era:"90s",formed:"1990",loc:"Salem, MA",album:"Petitioning the Empty Sky (1996)",tags:["metalcore","chaotic","Deathwish"],artistSpotify:"7kHzfxMLtVHHb523s43rY1",discog:[
+{name:"Converge",scene:"Boston",era:"90s",formed:"1990",loc:"Salem, MA",album:"Petitioning the Empty Sky (1996)",tags:["metalcore","chaotic","Deathwish"],discog:[
 {title:"Petitioning the Empty Sky",year:1996,spotify:"1bh2qEz0VROPQ6sMOpJoOb",apple:"petitioning-the-empty-sky/1443495620",yt:"4-e0Lwn29FY"},
 {title:"When Forever Comes Crashing",year:1998,spotify:"0mFovVHxC2t3r5AvMnFkMX",apple:"when-forever-comes-crashing/1443495889",yt:""},
 {title:"Jane Doe",year:2001,spotify:"2LenLjGaVQFnMKJGjFqHnC",apple:"jane-doe/1443496053",yt:"efBYBioFAFE"}
 ]},
-{name:"Earth Crisis",scene:"Other US",era:"90s",formed:"1989",loc:"Syracuse, NY",album:"Destroy the Machines (1995)",tags:["vegan SE","metalcore"],artistSpotify:"4ITkzAQWPILwWpEWJxHB9g",discog:[
+{name:"Earth Crisis",scene:"Other US",era:"90s",formed:"1989",loc:"Syracuse, NY",album:"Destroy the Machines (1995)",tags:["vegan SE","metalcore"],discog:[
 {title:"Destroy the Machines",year:1995,spotify:"2rMSM6QJKMRF8mC93lJOAt",apple:"destroy-the-machines/1440846660",yt:"xt89n1u3MF0"},
 {title:"Gomorrah's Season Ends",year:1996,spotify:"6h0mY1vJF3w3xkGvZ3dSB8",apple:"gomorrahs-season-ends/1440846843",yt:""}
 ]},
-{name:"Integrity",scene:"Cleveland",era:"90s",formed:"1988",loc:"Cleveland, OH",album:"Those Who Fear Tomorrow (1991)",tags:["metalcore pioneer","holy terror"],artistSpotify:"3L3FDQpQskFnHiISPYHmBo",discog:[
+{name:"Integrity",scene:"Cleveland",era:"90s",formed:"1988",loc:"Cleveland, OH",album:"Those Who Fear Tomorrow (1991)",tags:["metalcore pioneer","holy terror"],discog:[
 {title:"Those Who Fear Tomorrow",year:1991,spotify:"3Py8RRDS78lJ4b6bfCGZa0",apple:"those-who-fear-tomorrow/1443510155",yt:"7kR2puKPCTQ"},
 {title:"Systems Overload",year:1995,spotify:"6bFv4qMGKkVNsOd5Fv7vYr",apple:"systems-overload/1443510328",yt:""},
 {title:"Humanity Is the Devil",year:1996,spotify:"7GMW4GYhqX4v4jFn5TXRRD",apple:"humanity-is-the-devil/1443510498",yt:""},
 {title:"Seasons in the Size of Days",year:1997,spotify:"",apple:"",yt:""}
 ]},
-{name:"Ringworm",scene:"Cleveland",era:"90s",formed:"1989",loc:"Cleveland, OH",album:"The Promise (1993)",tags:["metallic HC","crossover","Victory"],artistSpotify:"1mVvXNKbCaUapInbgHCDRV",discog:[
+{name:"Ringworm",scene:"Cleveland",era:"90s",formed:"1989",loc:"Cleveland, OH",album:"The Promise (1993)",tags:["metallic HC","crossover","Victory"],discog:[
 {title:"The Promise",year:1993,spotify:"",apple:"",yt:"QYLw5fN4gM0"},
 {title:"Birth Is Pain",year:2001,spotify:"7rqAiUTrkDhW9frgqj9rrg",apple:"birth-is-pain/1443503714",yt:""}
 ]},
 {name:"Confront",scene:"Cleveland",era:"80s",formed:"1987",loc:"Cleveland, OH",album:"Demo (1988)",tags:["straight edge","Cleveland HC"],discog:[
 {title:"Demo",year:1988,spotify:"",apple:"",yt:"",note:"Demo-only; extremely limited"}
 ]},
-{name:"9 Shocks Terror",scene:"Cleveland",era:"90s",formed:"1997",loc:"Cleveland, OH",album:"Zen and the Art of Beating Your Ass (2001)",tags:["thrashcore","powerviolence"],artistSpotify:"02gXHAknyCTLnLc4je7DCm",discog:[
+{name:"9 Shocks Terror",scene:"Cleveland",era:"90s",formed:"1997",loc:"Cleveland, OH",album:"Zen and the Art of Beating Your Ass (2001)",tags:["thrashcore","powerviolence"],discog:[
 {title:"Zen and the Art of Beating Your Ass",year:2001,spotify:"",apple:"",yt:"yQWGLT0c3JA"}
 ]},
-{name:"Zero Defex",scene:"Cleveland",era:"80s",formed:"1981",loc:"Akron, OH",album:"The New Hope comp (1983)",tags:["NE Ohio HC","DIY"],artistSpotify:"3CZrFczhXHDnoo7SsnLjhO",discog:[
+{name:"Zero Defex",scene:"Cleveland",era:"80s",formed:"1981",loc:"Akron, OH",album:"The New Hope comp (1983)",tags:["NE Ohio HC","DIY"],discog:[
 {title:"The New Hope (compilation)",year:1983,spotify:"",apple:"",yt:"",note:"Regional compilation; very limited"}
 ]},
-{name:"Hatebreed",scene:"Other US",era:"90s",formed:"1994",loc:"Bridgeport, CT",album:"Satisfaction Is the Death of Desire (1997)",tags:["metallic HC","Victory"],artistSpotify:"17Mb968quDHpjCkIyq30QV",discog:[
+{name:"Hatebreed",scene:"Other US",era:"90s",formed:"1994",loc:"Bridgeport, CT",album:"Satisfaction Is the Death of Desire (1997)",tags:["metallic HC","Victory"],discog:[
 {title:"Satisfaction Is the Death of Desire",year:1997,spotify:"2fM6i2pTlJXu9nkKGCULPd",apple:"satisfaction-is-the-death-of-desire/1440842693",yt:"HB3tmC2f3t0"},
 {title:"Perseverance",year:2002,spotify:"7DL2M3ZriZTvCWbCfX9DYt",apple:"perseverance/1440842862",yt:""}
 ]},
-{name:"Snapcase",scene:"Other US",era:"90s",formed:"1991",loc:"Buffalo, NY",album:"Progression Through Unlearning (1997)",tags:["post-HC","Victory"],artistSpotify:"1egTA9mNgTwglPEQLmMd9W",discog:[
+{name:"Snapcase",scene:"Other US",era:"90s",formed:"1991",loc:"Buffalo, NY",album:"Progression Through Unlearning (1997)",tags:["post-HC","Victory"],discog:[
 {title:"Lookinglasself",year:1994,spotify:"5fDMVZ1bRYfG3aQ7PQFG8y",apple:"lookinglasself/1440843031",yt:""},
 {title:"Progression Through Unlearning",year:1997,spotify:"3HdC0aR8qV1cO3jXTgqy6K",apple:"progression-through-unlearning/1440843200",yt:"wHxdB7z8Zeg"}
 ]},
-{name:"Bane",scene:"Boston",era:"90s",formed:"1995",loc:"Worcester, MA",album:"It All Comes Down to This (1999)",tags:["youth crew revival","Equal Vision"],artistSpotify:"2Fjvft2Z56VrVjmYE5TkEi",discog:[
+{name:"Bane",scene:"Boston",era:"90s",formed:"1995",loc:"Worcester, MA",album:"It All Comes Down to This (1999)",tags:["youth crew revival","Equal Vision"],discog:[
 {title:"It All Comes Down to This",year:1999,spotify:"0DV3kPGhDH82X0TlHbUEwP",apple:"it-all-comes-down-to-this/1443492506",yt:"E3bsRVGMcjU"},
 {title:"Give Blood",year:2001,spotify:"6JhR23MjfnSZ7EWXcVfD0W",apple:"give-blood/1443492661",yt:""}
 ]},
-{name:"Ten Yard Fight",scene:"Boston",era:"90s",formed:"1995",loc:"Boston, MA",album:"Hardcore Pride (1997)",tags:["youth crew revival","straight edge"],artistSpotify:"3SCf9Y2HTbV2LmafwL8EFb",discog:[
+{name:"Ten Yard Fight",scene:"Boston",era:"90s",formed:"1995",loc:"Boston, MA",album:"Hardcore Pride (1997)",tags:["youth crew revival","straight edge"],discog:[
 {title:"Hardcore Pride",year:1997,spotify:"3g7B8dQhIuWdOBuZRx1lkj",apple:"hardcore-pride/1443493034",yt:"z1xaLbRWb90"}
 ]},
-{name:"Refused",scene:"Other US",era:"90s",formed:"1991",loc:"Umea, Sweden",album:"The Shape of Punk to Come (1998)",tags:["experimental","Swedish"],artistSpotify:"5sdxGvwxI1TkTA6Pu2jnTb",discog:[
+{name:"Refused",scene:"Other US",era:"90s",formed:"1991",loc:"Umea, Sweden",album:"The Shape of Punk to Come (1998)",tags:["experimental","Swedish"],discog:[
 {title:"Songs to Fan the Flames of Discontent",year:1996,spotify:"6cQz4Kp50MKpIguyTjMiPr",apple:"songs-to-fan-the-flames-of-discontent/1443494036",yt:""},
 {title:"The Shape of Punk to Come",year:1998,spotify:"3CnhbaJfVoLGPBIsFdZafe",apple:"the-shape-of-punk-to-come/1443494211",yt:"4OkVNTW6PLQ"}
 ]},
-{name:"Los Crudos",scene:"Other US",era:"90s",formed:"1991",loc:"Chicago, IL",album:"Canciones Para Liberar (1996)",tags:["Latinx HC","DIY"],artistSpotify:"0O1weoUEd0dewmd4zEx5Us",discog:[
+{name:"Los Crudos",scene:"Other US",era:"90s",formed:"1991",loc:"Chicago, IL",album:"Canciones Para Liberar (1996)",tags:["Latinx HC","DIY"],discog:[
 {title:"Canciones Para Liberar",year:1996,spotify:"",apple:"",yt:"sVz5QSvJsKo",note:"DIY release; limited streaming"}
 ]},
-{name:"Madball",scene:"NY",era:"90s",formed:"1988",loc:"New York, NY",album:"Set It Off (1994)",tags:["NYHC","Roadrunner"],artistSpotify:"1qh6ppVtiFTKMyta0NXsjf",discog:[
+{name:"Madball",scene:"NY",era:"90s",formed:"1988",loc:"New York, NY",album:"Set It Off (1994)",tags:["NYHC","Roadrunner"],discog:[
 {title:"Set It Off",year:1994,spotify:"4tHuuHzDGz5LRDM2bnqJaG",apple:"set-it-off/1440839698",yt:"CKxWaQ4suqo"},
 {title:"Demonstrating My Style",year:1996,spotify:"2lWWB0ISzWPJDUfg8cE2PD",apple:"demonstrating-my-style/1440839892",yt:""}
 ]},
-{name:"Spazz",scene:"SF",era:"90s",formed:"1992",loc:"Redwood City, CA",album:"Dwarf Jester Rising (1994)",tags:["powerviolence","grind"],artistSpotify:"2GjWPybilPsIA8gzVqwz83",discog:[
+{name:"Spazz",scene:"SF",era:"90s",formed:"1992",loc:"Redwood City, CA",album:"Dwarf Jester Rising (1994)",tags:["powerviolence","grind"],discog:[
 {title:"Dwarf Jester Rising",year:1994,spotify:"",apple:"",yt:"",note:"Underground releases; limited streaming"},
 {title:"Crush Kill Destroy",year:1999,spotify:"",apple:"",yt:"F-aSPKjrVJ8"}
 ]},
-{name:"Infest",scene:"LA",era:"80s",formed:"1986",loc:"Valencia, CA",album:"Slave (1988)",tags:["powerviolence","thrashcore"],artistSpotify:"7qdMFZWDSFwkSLCsU21muN",discog:[
+{name:"Infest",scene:"LA",era:"80s",formed:"1986",loc:"Valencia, CA",album:"Slave (1988)",tags:["powerviolence","thrashcore"],discog:[
 {title:"Slave",year:1988,spotify:"",apple:"",yt:"4uBO9K0JjTQ",note:"Underground; limited streaming"}
 ]},
-{name:"Poison Idea",scene:"Other US",era:"80s",formed:"1980",loc:"Portland, OR",album:"Feel the Darkness (1990)",tags:["punk-metal","Portland"],artistSpotify:"3HSNI061dY6dxEzvZczIdI",discog:[
+{name:"Poison Idea",scene:"Other US",era:"80s",formed:"1980",loc:"Portland, OR",album:"Feel the Darkness (1990)",tags:["punk-metal","Portland"],discog:[
 {title:"Kings of Punk",year:1986,spotify:"58Ue6s6OGVDD60jTd5dWdN",apple:"kings-of-punk/1573597783",yt:""},
 {title:"Feel the Darkness",year:1990,spotify:"6gzEMou1FO8TP5pjZIAKnC",apple:"feel-the-darkness/1573598042",yt:"4fQEC2Ep0rE"}
 ]},
-{name:"Slapshot",scene:"Boston",era:"80s",formed:"1985",loc:"Boston, MA",album:"Back on the Map (1987)",tags:["Boston HC","street edge"],artistSpotify:"6sBw8Lm18Aj4Zd4dVzM9WU",discog:[
+{name:"Slapshot",scene:"Boston",era:"80s",formed:"1985",loc:"Boston, MA",album:"Back on the Map (1987)",tags:["Boston HC","street edge"],discog:[
 {title:"Back on the Map",year:1987,spotify:"1r2pIz7FMr5J3hv8qm41tM",apple:"back-on-the-map/1434836296",yt:""}
 ]},
-{name:"Nation of Ulysses",scene:"DC",era:"90s",formed:"1988",loc:"Washington, DC",album:"13-Point Program (1991)",tags:["art-punk","Dischord"],artistSpotify:"5WYp4rSdvV9DuiswVnxheS",discog:[
+{name:"Nation of Ulysses",scene:"DC",era:"90s",formed:"1988",loc:"Washington, DC",album:"13-Point Program (1991)",tags:["art-punk","Dischord"],discog:[
 {title:"13-Point Program to Destroy America",year:1991,spotify:"",apple:"",yt:"8hv2KRWjFlg",note:"Dischord: limited streaming"}
 ]},
-{name:"Government Issue",scene:"DC",era:"80s",formed:"1980",loc:"Washington, DC",album:"Joyride (1984)",tags:["DC HC","Dischord"],artistSpotify:"23TsZp8huaixFFF78vRnNO",discog:[
+{name:"Government Issue",scene:"DC",era:"80s",formed:"1980",loc:"Washington, DC",album:"Joyride (1984)",tags:["DC HC","Dischord"],discog:[
 {title:"Joyride",year:1984,spotify:"",apple:"",yt:"",note:"Dischord: limited streaming"},
 {title:"Crash",year:1988,spotify:"",apple:"",yt:""}
 ]},
-{name:"Murphy's Law",scene:"NY",era:"80s",formed:"1982",loc:"New York, NY",album:"Murphy's Law (1986)",tags:["NYHC","fun HC"],artistSpotify:"3EVzblmlRt3zPoB982Gr0G",discog:[
+{name:"Murphy's Law",scene:"NY",era:"80s",formed:"1982",loc:"New York, NY",album:"Murphy's Law (1986)",tags:["NYHC","fun HC"],discog:[
 {title:"Murphy's Law",year:1986,spotify:"4p3FD9M5sP6LiP1cPLZcKj",apple:"murphys-law/1443537506",yt:"8bxuU_SFQLY"}
 ]},
-{name:"Warzone",scene:"NY",era:"80s",formed:"1982",loc:"New York, NY",album:"Don't Forget the Struggle (1987)",tags:["NYHC","Revelation"],artistSpotify:"7cvibKo9n0RsgKaW4p4RVO",discog:[
+{name:"Warzone",scene:"NY",era:"80s",formed:"1982",loc:"New York, NY",album:"Don't Forget the Struggle (1987)",tags:["NYHC","Revelation"],discog:[
 {title:"Don't Forget the Struggle, Don't Forget the Streets",year:1987,spotify:"26ZdFd39PXCA3h1YZRq7pm",apple:"dont-forget-the-struggle-dont-forget-the-streets/1442623382",yt:"6iH9kcr6hPA"}
 ]},
-{name:"Napalm Death",scene:"UK",era:"80s",formed:"1981",loc:"Birmingham, UK",album:"Scum (1987)",tags:["grindcore","Earache"],artistSpotify:"3UqRgrDIQ208yNGiWKRMNt",discog:[
+{name:"Napalm Death",scene:"UK",era:"80s",formed:"1981",loc:"Birmingham, UK",album:"Scum (1987)",tags:["grindcore","Earache"],discog:[
 {title:"Scum",year:1987,spotify:"18fKSWPBUWZDg5eITYfHpR",apple:"scum/1440908449",yt:"qTcXbScZHeY"},
 {title:"From Enslavement to Obliteration",year:1988,spotify:"27W8l8Fq0uQjqKJkPL3n8Y",apple:"from-enslavement-to-obliteration/1440908629",yt:""}
 ]},
-{name:"American Nightmare",scene:"Boston",era:"90s",formed:"1998",loc:"Boston, MA",album:"Background Music (2001)",tags:["Boston HC","Deathwish"],artistSpotify:"5FBzEnwXCKl3GoZCeXGMNy",discog:[
+{name:"American Nightmare",scene:"Boston",era:"90s",formed:"1998",loc:"Boston, MA",album:"Background Music (2001)",tags:["Boston HC","Deathwish"],discog:[
 {title:"Background Music",year:2001,spotify:"4UJQ7I8mzUwXCOxVWIxNkl",apple:"background-music/1443491506",yt:"gO2oKf0GbAI"}
 ]}
+,
+{name:"Adolescents",scene:"OC",era:"80s",formed:"1980",loc:"Fullerton, CA",album:"Adolescents (1981)",tags:["OC punk","Frontier"],discog:[
+{title:"Adolescents",year:1981,spotify:"5W5K1FMM3b1PyTsSDiWpqI",apple:"",yt:""}
+]},
+{name:"Social Distortion",scene:"OC",era:"80s",formed:"1978",loc:"Fullerton, CA",album:"Mommy's Little Monster (1983)",tags:["OC punk","punk rock"],discog:[
+{title:"Mommy's Little Monster",year:1983,spotify:"0qIcfeNvy2RrPUAKWBOzRu",apple:"",yt:""}
+]},
+{name:"TSOL",scene:"OC",era:"80s",formed:"1978",loc:"Long Beach, CA",album:"Dance with Me (1981)",tags:["OC punk","deathrock"],discog:[
+{title:"Dance with Me",year:1981,spotify:"4YmZ89dUKV9pD1mxxFALqT",apple:"",yt:""}
+]},
+{name:"Agent Orange",scene:"OC",era:"80s",formed:"1979",loc:"Placentia, CA",album:"Living in Darkness (1981)",tags:["surf-punk","OC"],discog:[
+{title:"Living in Darkness",year:1981,spotify:"2NGRR3GFpOhYQYKFJJHLOi",apple:"",yt:""}
+]},
+{name:"Drive Like Jehu",scene:"San Diego",era:"90s",formed:"1990",loc:"San Diego, CA",album:"Yank Crime (1994)",tags:["post-HC","Interscope"],discog:[
+{title:"Yank Crime",year:1994,spotify:"7FDqfcSotgiRXLWZi1u0oU",apple:"",yt:""}
+]},
+{name:"Heroin",scene:"San Diego",era:"90s",formed:"1989",loc:"San Diego, CA",album:"Heroin (1991)",tags:["screamo","Gravity"],discog:[
+{title:"Heroin",year:1991,spotify:"",apple:"",yt:""}
+]},
+{name:"Antioch Arrow",scene:"San Diego",era:"90s",formed:"1992",loc:"San Diego, CA",album:"In Love with Jetts (1993)",tags:["screamo","Gravity"],discog:[
+{title:"In Love with Jetts",year:1993,spotify:"",apple:"",yt:""}
+]},
+{name:"Rorschach",scene:"NJ",era:"90s",formed:"1989",loc:"Montclair, NJ",album:"Protestant (1993)",tags:["noise-HC","Gern Blandsten"],discog:[
+{title:"Protestant",year:1993,spotify:"5vP4G30dRcU1TjEU1I3y66",apple:"",yt:""}
+]},
+{name:"Bouncing Souls",scene:"NJ",era:"90s",formed:"1987",loc:"New Brunswick, NJ",album:"Maniacal Laughter (1996)",tags:["NJ punk","Epitaph"],discog:[
+{title:"Maniacal Laughter",year:1996,spotify:"5u3gXvE7Rxwv0aKhfrJukq",apple:"",yt:""}
+]},
+{name:"YDI",scene:"Philly",era:"80s",formed:"1981",loc:"Philadelphia, PA",album:"A Place in the Sun (1983)",tags:["Philly HC","crossover"],discog:[
+{title:"A Place in the Sun / Black Dust",year:1983,spotify:"",apple:"",yt:""}
+]},
+{name:"Flag of Democracy",scene:"Philly",era:"80s",formed:"1982",loc:"Philadelphia, PA",album:"Shatter Your Day (1986)",tags:["Philly HC","thrash"],discog:[
+{title:"Shatter Your Day",year:1986,spotify:"",apple:"",yt:""}
+]},
+{name:"Paint It Black",scene:"Philly",era:"90s",formed:"1997",loc:"Philadelphia, PA",album:"CVA (2003)",tags:["melodic HC","Jade Tree"],discog:[
+{title:"CVA",year:2003,spotify:"5hd8KW1c0dRVrS8XEayqZk",apple:"",yt:""}
+]},
+{name:"Starkweather",scene:"Philly",era:"90s",formed:"1989",loc:"Philadelphia, PA",album:"Crossbearer (1994)",tags:["metalcore","noise"],discog:[
+{title:"Crossbearer",year:1994,spotify:"",apple:"",yt:""}
+]},
+{name:"The Accused",scene:"Seattle",era:"80s",formed:"1981",loc:"Seattle, WA",album:"Martha Splatterhead's Maddest Stories (1988)",tags:["crossover","thrash"],discog:[
+{title:"Martha Splatterhead's Maddest Stories Ever Told",year:1988,spotify:"7t7wFl3ogBNlynB38ZLJb3",apple:"",yt:""}
+]},
+{name:"Brotherhood",scene:"Seattle",era:"80s",formed:"1986",loc:"Seattle, WA",album:"No Tolerance for Ignorance (1987)",tags:["Seattle HC","straight edge"],discog:[
+{title:"No Tolerance for Ignorance",year:1987,spotify:"",apple:"",yt:""}
+]},
+{name:"Zero Boys",scene:"Midwest",era:"80s",formed:"1979",loc:"Indianapolis, IN",album:"Vicious Circle (1982)",tags:["Midwest HC","melodic"],discog:[
+{title:"Vicious Circle",year:1982,spotify:"2aLjyaXCBmgCqQ6agB8Pkq",apple:"",yt:""}
+]},
+{name:"Necros",scene:"Midwest",era:"80s",formed:"1980",loc:"Maumee, OH",album:"Conquest for Death (1983)",tags:["Midwest HC","Touch and Go"],discog:[
+{title:"Conquest for Death",year:1983,spotify:"",apple:"",yt:""}
+]},
+{name:"Die Kreuzen",scene:"Midwest",era:"80s",formed:"1981",loc:"Milwaukee, WI",album:"Die Kreuzen (1984)",tags:["Midwest HC","Touch and Go"],discog:[
+{title:"Die Kreuzen",year:1984,spotify:"4X5pTalMmQSbFwlC3I2MaL",apple:"",yt:""}
+]},
+{name:"Toxic Reasons",scene:"Midwest",era:"80s",formed:"1979",loc:"Dayton, OH",album:"Independence (1982)",tags:["Midwest HC","political"],discog:[
+{title:"Independence",year:1982,spotify:"",apple:"",yt:""}
+]},
+{name:"Articles of Faith",scene:"Midwest",era:"80s",formed:"1981",loc:"Chicago, IL",album:"Give Thanks (1984)",tags:["Chicago HC","Dischord"],discog:[
+{title:"Give Thanks",year:1984,spotify:"",apple:"",yt:""}
+]},
+{name:"Big Black",scene:"Midwest",era:"80s",formed:"1981",loc:"Chicago, IL",album:"Atomizer (1986)",tags:["noise-punk","post-HC","Touch and Go"],discog:[
+{title:"Atomizer",year:1986,spotify:"69hJqm7SRFOlEIHkqOvI2B",apple:"",yt:""},
+{title:"Songs About Fucking",year:1987,spotify:"2v2DNrz9r4VQ2NOcfzKP4M",apple:"",yt:""}
+]},
+{name:"Naked Raygun",scene:"Midwest",era:"80s",formed:"1980",loc:"Chicago, IL",album:"Throb Throb (1985)",tags:["Chicago HC","melodic"],discog:[
+{title:"Throb Throb",year:1985,spotify:"3JHSlDHxGrz1hg3pDhh49Q",apple:"",yt:""}
+]},
+{name:"Eyehategod",scene:"NOLA",era:"90s",formed:"1988",loc:"New Orleans, LA",album:"In the Name of Suffering (1992)",tags:["sludge","hardcore"],discog:[
+{title:"In the Name of Suffering",year:1992,spotify:"7rqQnbNi69xnxHW6Wg0Edr",apple:"",yt:""},
+{title:"Take as Needed for Pain",year:1993,spotify:"1vH1X7aN3G2SuPmxLdbjgD",apple:"",yt:""}
+]},
+{name:"Crowbar",scene:"NOLA",era:"90s",formed:"1989",loc:"New Orleans, LA",album:"Crowbar (1993)",tags:["sludge","doom-HC"],discog:[
+{title:"Crowbar",year:1993,spotify:"6Z9P4rGe7iJl0eZnMFJVLi",apple:"",yt:""}
+]},
+{name:"Corrosion of Conformity",scene:"South",era:"80s",formed:"1982",loc:"Raleigh, NC",album:"Eye for an Eye (1984)",tags:["crossover","Southern HC"],discog:[
+{title:"Eye for an Eye",year:1984,spotify:"5VpRGRtfZgsFfXXpZvEYGW",apple:"",yt:""},
+{title:"Animosity",year:1985,spotify:"0Xr99pxAQBDsxLm4dIqJWZ",apple:"",yt:""}
+]},
+{name:"GISM",scene:"Japan",era:"80s",formed:"1981",loc:"Tokyo, Japan",album:"Detestation (1984)",tags:["Japanese HC","extreme"],discog:[
+{title:"Detestation",year:1984,spotify:"",apple:"",yt:""}
+]},
+{name:"Gauze",scene:"Japan",era:"80s",formed:"1981",loc:"Tokyo, Japan",album:"Equalizing Distort (1986)",tags:["Japanese HC","thrash"],discog:[
+{title:"Equalizing Distort",year:1986,spotify:"",apple:"",yt:""}
+]},
+{name:"Lip Cream",scene:"Japan",era:"80s",formed:"1984",loc:"Tokyo, Japan",album:"Kill Ugly Pop (1986)",tags:["Japanese HC","thrash"],discog:[
+{title:"Kill Ugly Pop",year:1986,spotify:"",apple:"",yt:""}
+]},
+{name:"Wretched",scene:"Italy",era:"80s",formed:"1979",loc:"Milan, Italy",album:"Libero e Selvaggio (1984)",tags:["Italian HC","anarcho"],discog:[
+{title:"Libero e Selvaggio",year:1984,spotify:"",apple:"",yt:""}
+]},
+{name:"Raw Power",scene:"Italy",era:"80s",formed:"1981",loc:"Reggio Emilia, Italy",album:"Screams from the Gutter (1985)",tags:["Italian HC","crossover"],discog:[
+{title:"Screams from the Gutter",year:1985,spotify:"3qkFqE3Iv1VRwKaVv3C02v",apple:"",yt:""}
+]},
+{name:"Negazione",scene:"Italy",era:"80s",formed:"1983",loc:"Turin, Italy",album:"Lo Spirito Continua (1986)",tags:["Italian HC","political"],discog:[
+{title:"Lo Spirito Continua",year:1986,spotify:"",apple:"",yt:""}
+]},
+{name:"Anti Cimex",scene:"Sweden",era:"80s",formed:"1981",loc:"Gothenburg, Sweden",album:"Raped Ass (1983)",tags:["d-beat","Swedish HC"],discog:[
+{title:"Raped Ass",year:1983,spotify:"",apple:"",yt:""}
+]},
+{name:"Mob 47",scene:"Sweden",era:"80s",formed:"1982",loc:"Stockholm, Sweden",album:"Uppsansen Smansen (1984)",tags:["d-beat","Swedish HC"],discog:[
+{title:"Mob 47 EP",year:1984,spotify:"",apple:"",yt:""}
+]},
+{name:"Ratos de Porao",scene:"Brazil",era:"80s",formed:"1981",loc:"Sao Paulo, Brazil",album:"Crucificados pelo Sistema (1984)",tags:["Brazilian HC","crossover"],discog:[
+{title:"Crucificados pelo Sistema",year:1984,spotify:"4HJiLpKn36vGJDqpZ5RfAd",apple:"",yt:""},
+{title:"Brasil",year:1989,spotify:"6VXPfRQi1fRH2x0zF4gQzB",apple:"",yt:""}
+]},
+{name:"Olho Seco",scene:"Brazil",era:"80s",formed:"1981",loc:"Sao Paulo, Brazil",album:"Botas, Fuzis, Capacetes (1983)",tags:["Brazilian HC","raw"],discog:[
+{title:"Olho Seco EP",year:1983,spotify:"",apple:"",yt:""}
+]},
+{name:"Terveet Kadet",scene:"Finland",era:"80s",formed:"1980",loc:"Tampere, Finland",album:"Eutanasia (1986)",tags:["Finnish HC","extreme"],discog:[
+{title:"Eutanasia",year:1986,spotify:"",apple:"",yt:""}
+]},
+{name:"Avail",scene:"Richmond",era:"90s",formed:"1987",loc:"Richmond, VA",album:"Satiate (1992)",tags:["melodic HC","Lookout!"],discog:[
+{title:"Satiate",year:1992,spotify:"2DtZLxRvqKoXEScslgSd1a",apple:"",yt:""},
+{title:"Over the James",year:1998,spotify:"6j3FVl3W8F7ZKvCHhJJrGT",apple:"",yt:""}
+]},
+{name:"Strike Anywhere",scene:"Richmond",era:"90s",formed:"1999",loc:"Richmond, VA",album:"Change Is a Sound (2001)",tags:["melodic HC","Jade Tree"],discog:[
+{title:"Change Is a Sound",year:2001,spotify:"79xdFjEhwVAq63X18x8Y2q",apple:"",yt:""}
+]},
+{name:"At the Drive-In",scene:"El Paso",era:"90s",formed:"1993",loc:"El Paso, TX",album:"Relationship of Command (2000)",tags:["post-HC","Grand Royal"],discog:[
+{title:"In/Casino/Out",year:1998,spotify:"7rLnNGCvHEqkMfNTbyzxVD",apple:"",yt:""},
+{title:"Relationship of Command",year:2000,spotify:"7FVCTxahBi9g1K4CcNLklI",apple:"",yt:""}
+]},
+{name:"Propagandhi",scene:"Canada",era:"90s",formed:"1986",loc:"Winnipeg, Canada",album:"How to Clean Everything (1993)",tags:["political","Fat Wreck"],discog:[
+{title:"How to Clean Everything",year:1993,spotify:"1xNBwKdLn2ZiXqaFoFOVtu",apple:"",yt:""},
+{title:"Less Talk More Rock",year:1996,spotify:"3WOk5P9X8MqlUKFLsFBJIH",apple:"",yt:""}
+]},
+{name:"Lungfish",scene:"Baltimore",era:"90s",formed:"1987",loc:"Baltimore, MD",album:"Talking Songs for Walking (1992)",tags:["post-HC","Dischord"],discog:[
+{title:"Talking Songs for Walking",year:1992,spotify:"",apple:"",yt:""}
+]},
+{name:"Minutemen",scene:"LA",era:"80s",formed:"1980",loc:"San Pedro, CA",album:"Double Nickels on the Dime (1984)",tags:["post-punk","SST","eclectic"],discog:[
+{title:"Double Nickels on the Dime",year:1984,spotify:"34mIg4M4OfCmKg6lf0Kjjn",apple:"",yt:""},
+{title:"What Makes a Man Start Fires?",year:1983,spotify:"0KnMXRMsLLNd8M3dQkRiH0",apple:"",yt:""}
+]},
+{name:"Fear",scene:"LA",era:"80s",formed:"1977",loc:"Los Angeles, CA",album:"The Record (1982)",tags:["LA punk","Slash"],discog:[
+{title:"The Record",year:1982,spotify:"0z0ndOHswjQW49X3SMlbkN",apple:"",yt:""}
+]},
+{name:"Quicksand",scene:"NY",era:"90s",formed:"1990",loc:"New York, NY",album:"Slip (1993)",tags:["post-HC","Polydor"],discog:[
+{title:"Slip",year:1993,spotify:"5iR3JEuiYhgkfbPLFJWhdA",apple:"",yt:""},
+{title:"Manic Compression",year:1995,spotify:"31oqv7gAx3a5RO5P4hCKQU",apple:"",yt:""}
+]},
+{name:"Born Against",scene:"NY",era:"90s",formed:"1989",loc:"New York, NY",album:"The Rebel Sound of Shit and Failure (1995)",tags:["political HC","Vermiform"],discog:[
+{title:"The Rebel Sound of Shit and Failure",year:1995,spotify:"",apple:"",yt:""}
+]},
+{name:"Jawbox",scene:"DC",era:"90s",formed:"1989",loc:"Washington, DC",album:"For Your Own Special Sweetheart (1994)",tags:["post-HC","Atlantic"],discog:[
+{title:"Novelty",year:1992,spotify:"3sSVMBFWqRBEGEBWCB7bN1",apple:"",yt:""},
+{title:"For Your Own Special Sweetheart",year:1994,spotify:"7EJ3WXo4SKXrsiNm3TLWOE",apple:"",yt:""}
+]}
+
 ];
 
 const subgenresData=[
@@ -842,7 +1222,7 @@ tlC.innerHTML+=`<div class="tl-item"><div class="tl-year">${t.year}</div><div cl
 
 // RENDER SCENES
 const scC=document.getElementById('scene-container');
-const cityGlyphs={la:'LA',dc:'DC',ny:'NYC',boston:'BOS',sf:'SF',cleveland:'CLE',uk:'UK'};
+const cityGlyphs={la:'LA',dc:'DC',ny:'NYC',boston:'BOS',sf:'SF',cleveland:'CLE',uk:'UK',oc:'OC',nj:'NJ',philly:'PHL',sd:'SD',seattle:'SEA',midwest:'MW',nola:'NOLA',japan:'JP',italy:'IT',sweden:'SE',brazil:'BR',richmond:'RVA'};
 scenesData.forEach(s=>{
 const bands=s.bands.map(b=>{
 const idx=bandsData.findIndex(x=>x.name===b);
@@ -881,58 +1261,6 @@ document.getElementById('filter-era').addEventListener('change',renderBands);
 document.getElementById('filter-search').addEventListener('input',renderBands);
 renderBands();
 
-// BAND PHOTO FETCHER (Wikipedia)
-const photoCache={};
-const bandWikiNames={
-"D.R.I.":"Dirty_Rotten_Imbeciles","GBH":"GBH_(band)","D.O.A.":"D.O.A._(band)","Void":"Void_(band)",
-"Bold":"Bold_(band)","Discharge":"Discharge_(band)","Flipper":"Flipper_(band)","Bane":"Bane_(band)",
-"Refused":"Refused","Converge":"Converge_(band)","Infest":"Infest_(band)","Spazz":"Spazz_(band)",
-"MDC":"MDC_(band)","Slapshot":"Slapshot_(band)","Murphy's Law":"Murphy%27s_Law_(band)",
-"Warzone":"Warzone_(band)","Nation of Ulysses":"The_Nation_of_Ulysses","Government Issue":"Government_Issue",
-"American Nightmare":"American_Nightmare_(band)","Integrity":"Integrity_(band)","Ringworm":"Ringworm_(band)",
-"Poison Idea":"Poison_Idea","Los Crudos":"Los_Crudos","Gang Green":"Gang_Green",
-"Earth Crisis":"Earth_Crisis","Snapcase":"Snapcase","Hatebreed":"Hatebreed","Madball":"Madball",
-"Ten Yard Fight":"Ten_Yard_Fight","DYS":"DYS_(band)","Dag Nasty":"Dag_Nasty",
-"SS Decontrol":"SS_Decontrol","7 Seconds":"7_Seconds_(band)","Rites of Spring":"Rites_of_Spring",
-"Husker Du":"H%C3%BCsker_D%C3%BC","Cro-Mags":"Cro-Mags","Bad Brains":"Bad_Brains",
-"Black Flag":"Black_Flag_(band)","Minor Threat":"Minor_Threat","Dead Kennedys":"Dead_Kennedys",
-"Agnostic Front":"Agnostic_Front","Misfits":"Misfits_(band)","Circle Jerks":"Circle_Jerks",
-"Bad Religion":"Bad_Religion","Descendents":"Descendents","Suicidal Tendencies":"Suicidal_Tendencies",
-"Youth of Today":"Youth_of_Today","Gorilla Biscuits":"Gorilla_Biscuits","Fugazi":"Fugazi",
-"Negative Approach":"Negative_Approach","Sick of It All":"Sick_of_It_All",
-"Napalm Death":"Napalm_Death","9 Shocks Terror":"9_Shocks_Terror","Zero Defex":"Zero_Defex",
-"Reagan Youth":"Reagan_Youth","Heart Attack":"Heart_Attack_(band)","Urban Waste":"Urban_Waste_(band)",
-"Kraut":"Kraut_(band)","The Mob":"The_Mob_(American_band)","Nihilistics":"Nihilistics",
-"False Prophets":"False_Prophets_(band)","Antidote":"Antidote_(band)","Token Entry":"Token_Entry",
-"Leeway":"Leeway_(band)","Nausea":"Nausea_(band)","Cause for Alarm":"Cause_for_Alarm_(band)"
-};
-function fetchBandPhoto(bandName, idx){
-  const heroEl = document.getElementById('modal-hero-'+idx);
-  if(!heroEl) return;
-  if(photoCache[bandName]){
-    insertPhoto(heroEl, photoCache[bandName]);
-    return;
-  }
-  const wikiName = bandWikiNames[bandName] || bandName.replace(/ /g,'_');
-  fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(wikiName)}`)
-    .then(r=>r.json())
-    .then(data=>{
-      const url = data.thumbnail ? data.thumbnail.source.replace(/\/\d+px-/,'/500px-') : null;
-      if(url){
-        photoCache[bandName]=url;
-        insertPhoto(heroEl, url);
-      }
-    }).catch(()=>{});
-}
-function insertPhoto(heroEl, url){
-  const img = document.createElement('img');
-  img.className='modal-hero-photo';
-  img.alt='Band photo';
-  img.onload=()=>img.classList.add('loaded');
-  img.src=url;
-  heroEl.insertBefore(img, heroEl.firstChild);
-}
-
 // MODAL SYSTEM
 const overlay=document.getElementById('modal-overlay');
 const modalEl=document.getElementById('modal-content');
@@ -945,19 +1273,18 @@ const b=bandsData[idx];
 if(!b.discog||!b.discog.length)return;
 const related=bandRelated[b.name]||[];
 
+// Find first album with a Spotify ID for the hero
+const heroAlbum=b.discog.find(d=>d.spotify);
+const spotifyId=heroAlbum?heroAlbum.spotify:'';
+
 let html=`<button class="modal-close" onclick="closeModal()">&times;</button>`;
 
-// Hero: Wikipedia band photo with overlay
-html+=`<div class="modal-hero" id="modal-hero-${idx}"><div class="modal-hero-placeholder"><span>${b.name}</span></div><div class="modal-hero-overlay"><div class="modal-band">${b.name}</div><div class="modal-band-loc">${b.loc} &bull; Formed ${b.formed} &bull; ${b.scene}</div></div></div>`;
-
-// Spotify artist embed (preferred) or album embed fallback
-if(b.artistSpotify){
-html+=`<div class="modal-hero-spotify"><iframe src="https://open.spotify.com/embed/artist/${b.artistSpotify}?theme=0" height="352" allow="encrypted-media" loading="lazy" style="border:none;width:100%;border-radius:0"></iframe></div>`;
+// Hero: Spotify large embed or styled band name
+if(spotifyId){
+html+=`<div class="modal-hero-spotify"><iframe src="https://open.spotify.com/embed/album/${spotifyId}?theme=0" height="352" allow="encrypted-media" loading="lazy" style="border:none;width:100%;border-radius:0"></iframe></div>`;
+html+=`<div style="padding:0 4px"><div class="modal-band">${b.name}</div><div class="modal-band-loc">${b.loc} &bull; Formed ${b.formed} &bull; ${b.scene}</div></div>`;
 }else{
-const heroAlbum=b.discog.find(d=>d.spotify);
-if(heroAlbum){
-html+=`<div class="modal-hero-spotify"><iframe src="https://open.spotify.com/embed/album/${heroAlbum.spotify}?theme=0" height="352" allow="encrypted-media" loading="lazy" style="border:none;width:100%;border-radius:0"></iframe></div>`;
-}
+html+=`<div class="modal-hero"><div class="modal-hero-placeholder"><span>${b.name}</span></div><div class="modal-hero-overlay"><div class="modal-band">${b.name}</div><div class="modal-band-loc">${b.loc} &bull; Formed ${b.formed} &bull; ${b.scene}</div></div></div>`;
 }
 
 // Tags
@@ -971,10 +1298,10 @@ b.discog.forEach((d,di)=>{
 html+=`<div class="disc-item"><div><span class="disc-title">${d.title}</span><span class="disc-year">(${d.year})</span></div>`;
 if(d.note)html+=`<div class="disc-note">${d.note}</div>`;
 if(d.spotify){
-html+=`<div class="disc-links"><a class="sp" href="https://open.spotify.com/album/${d.spotify}" target="_blank" rel="noopener">&#9679; Open in Spotify</a></div>`;
+html+=`<div class="disc-links"><a class="sp" href="https://open.spotify.com/album/${d.spotify}" target="_blank" rel="noopener">&#9679; Open in Spotify</a><a class="yt-search" href="https://www.youtube.com/results?search_query=${encodeURIComponent(b.name+' '+d.title+' full album')}" target="_blank" rel="noopener">&#9654; YouTube</a></div>`;
 html+=`<div class="disc-embed"><iframe src="https://open.spotify.com/embed/album/${d.spotify}?theme=0" height="152" allow="encrypted-media" loading="lazy" style="border:none;width:100%"></iframe></div>`;
 }else{
-html+=`<div class="disc-links"><a class="sp" href="https://open.spotify.com/search/${encodeURIComponent(b.name+' '+d.title)}" target="_blank" rel="noopener">&#9679; Search Spotify</a></div>`;
+html+=`<div class="disc-links"><a class="sp" href="https://open.spotify.com/search/${encodeURIComponent(b.name+' '+d.title)}" target="_blank" rel="noopener">&#9679; Search Spotify</a><a class="yt-search" href="https://www.youtube.com/results?search_query=${encodeURIComponent(b.name+' '+d.title+' full album')}" target="_blank" rel="noopener">&#9654; Search YouTube</a></div>`;
 }
 html+=`</div>`;
 });
@@ -1019,7 +1346,6 @@ html+=`</div>`;
 modalEl.innerHTML=html;
 overlay.classList.add('open');
 overlay.scrollTop=0;
-fetchBandPhoto(b.name, idx);
 }
 
 // AI RESEARCH FUNCTION
@@ -1120,7 +1446,7 @@ statBoxes.innerHTML+=`<div class="stat-box"><div class="stat-num">${s.num}</div>
 // BAR DATA
 const sceneCount={};
 bandsData.forEach(b=>{sceneCount[b.scene]=(sceneCount[b.scene]||0)+1});
-const sceneColors={LA:'red',DC:'blue',NY:'orange',Boston:'green',SF:'yellow',Cleveland:'pink','Other US':'pink',UK:'pink',Canada:'yellow'};
+const sceneColors={LA:'red',DC:'blue',NY:'orange',Boston:'green',SF:'yellow',Cleveland:'pink',OC:'orange',NJ:'yellow',Philly:'blue',"San Diego":'pink',Seattle:'green',Midwest:'red',NOLA:'pink',Richmond:'red',"El Paso":'red',Baltimore:'blue',Japan:'red',Italy:'orange',Sweden:'blue',Brazil:'green',Finland:'blue','South':'pink','Other US':'pink',UK:'pink',Canada:'yellow'};
 const maxScene=Math.max(...Object.values(sceneCount));
 
 const sceneBars=document.getElementById('scene-bars');
@@ -1256,7 +1582,7 @@ const cityCoords = {
   "Columbia, MD":{lat:39.2037,lng:-76.8610,city:"Washington DC",color:"#3a7acc"},
   "New York, NY":{lat:40.7128,lng:-74.0060,city:"New York",color:"#c45a1e"},
   "Queens, NY":{lat:40.7282,lng:-73.7949,city:"New York",color:"#c45a1e"},
-  "Lodi, NJ":{lat:40.8823,lng:-74.0832,city:"New Jersey",color:"#cc5555"},
+  "Lodi, NJ":{lat:40.8823,lng:-74.0832,city:"New York",color:"#c45a1e"},
   "Boston, MA":{lat:42.3601,lng:-71.0589,city:"Boston",color:"#3a9a3a"},
   "Worcester, MA":{lat:42.2626,lng:-71.8023,city:"Boston",color:"#3a9a3a"},
   "Salem, MA":{lat:42.5195,lng:-70.8967,city:"Boston",color:"#3a9a3a"},
@@ -1277,7 +1603,35 @@ const cityCoords = {
   "Bridgeport, CT":{lat:41.1792,lng:-73.1894,city:"Bridgeport",color:"#cc5555"},
   "Buffalo, NY":{lat:42.8864,lng:-78.8784,city:"Buffalo",color:"#cc5555"},
   "Chicago, IL":{lat:41.8781,lng:-87.6298,city:"Chicago",color:"#cc5555"},
-  "Umea, Sweden":{lat:63.8258,lng:20.2630,city:"Sweden",color:"#cc5555"}
+  "Umea, Sweden":{lat:63.8258,lng:20.2630,city:"Sweden",color:"#cc5555"},
+  "Fullerton, CA":{lat:33.8703,lng:-117.9242,city:"Orange County",color:"#e8772e"},
+  "Long Beach, CA":{lat:33.7701,lng:-118.1937,city:"Orange County",color:"#e8772e"},
+  "Placentia, CA":{lat:33.8722,lng:-117.8703,city:"Orange County",color:"#e8772e"},
+  "San Diego, CA":{lat:32.7157,lng:-117.1611,city:"San Diego",color:"#cc66aa"},
+  "Montclair, NJ":{lat:40.8259,lng:-74.2090,city:"New Jersey",color:"#cc8844"},
+  "New Brunswick, NJ":{lat:40.4862,lng:-74.4518,city:"New Jersey",color:"#cc8844"},
+  "Philadelphia, PA":{lat:39.9526,lng:-75.1652,city:"Philadelphia",color:"#44aacc"},
+  "Seattle, WA":{lat:47.6062,lng:-122.3321,city:"Seattle",color:"#66aa66"},
+  "Indianapolis, IN":{lat:39.7684,lng:-86.1581,city:"Indianapolis",color:"#cc5555"},
+  "Maumee, OH":{lat:41.5628,lng:-83.6538,city:"Maumee",color:"#cc5555"},
+  "Milwaukee, WI":{lat:43.0389,lng:-87.9065,city:"Milwaukee",color:"#cc5555"},
+  "Dayton, OH":{lat:39.7589,lng:-84.1916,city:"Dayton",color:"#cc5555"},
+  "New Orleans, LA":{lat:29.9511,lng:-90.0715,city:"New Orleans",color:"#8844aa"},
+  "Raleigh, NC":{lat:35.7796,lng:-78.6382,city:"Raleigh",color:"#8844aa"},
+  "Tokyo, Japan":{lat:35.6762,lng:139.6503,city:"Tokyo",color:"#dd3333"},
+  "Milan, Italy":{lat:45.4642,lng:9.1900,city:"Milan",color:"#dd8833"},
+  "Reggio Emilia, Italy":{lat:44.6983,lng:10.6312,city:"Reggio Emilia",color:"#dd8833"},
+  "Turin, Italy":{lat:45.0703,lng:7.6869,city:"Turin",color:"#dd8833"},
+  "Gothenburg, Sweden":{lat:57.7089,lng:11.9746,city:"Gothenburg",color:"#4488cc"},
+  "Stockholm, Sweden":{lat:59.3293,lng:18.0686,city:"Stockholm",color:"#4488cc"},
+  "Sao Paulo, Brazil":{lat:-23.5505,lng:-46.6333,city:"Sao Paulo",color:"#33aa33"},
+  "Tampere, Finland":{lat:61.4978,lng:23.7610,city:"Tampere",color:"#6688cc"},
+  "Richmond, VA":{lat:37.5407,lng:-77.4360,city:"Richmond",color:"#cc6655"},
+  "El Paso, TX":{lat:31.7619,lng:-106.4850,city:"El Paso",color:"#cc5555"},
+  "Winnipeg, Canada":{lat:49.8951,lng:-97.1384,city:"Winnipeg",color:"#cc8833"},
+  "Baltimore, MD":{lat:39.2904,lng:-76.6122,city:"Baltimore",color:"#5599aa"},
+  "San Pedro, CA":{lat:33.7358,lng:-118.2923,city:"Los Angeles",color:"#c41e1e"},
+  "Los Angeles, CA":{lat:34.0522,lng:-118.2437,city:"Los Angeles",color:"#c41e1e"}
 };
 
 // Parse formation year from band data
@@ -1288,60 +1642,61 @@ function getFormYear(b){
 // Scene color legend
 const sceneLegend = [
   {color:"#c41e1e",name:"Los Angeles"},
+  {color:"#e8772e",name:"Orange County"},
   {color:"#3a7acc",name:"Washington DC"},
   {color:"#c45a1e",name:"New York"},
+  {color:"#cc8844",name:"New Jersey"},
+  {color:"#44aacc",name:"Philadelphia"},
   {color:"#3a9a3a",name:"Boston"},
   {color:"#d4a017",name:"San Francisco"},
+  {color:"#cc66aa",name:"San Diego"},
   {color:"#9a66aa",name:"Cleveland"},
+  {color:"#66aa66",name:"Seattle"},
+  {color:"#8844aa",name:"New Orleans"},
+  {color:"#cc6655",name:"Richmond"},
   {color:"#8b2252",name:"UK"},
+  {color:"#dd3333",name:"Japan"},
+  {color:"#dd8833",name:"Italy"},
+  {color:"#4488cc",name:"Sweden"},
+  {color:"#33aa33",name:"Brazil"},
   {color:"#cc5555",name:"Other"}
 ];
 
-// Build scene filter boxes above map
-let activeSceneFilter = null;
-const mainScenes=["Los Angeles","Washington DC","New York","Boston","San Francisco","Cleveland","UK"];
-const filtersEl = document.getElementById('scene-filters');
-
-function getSceneBandCount(sceneName){
-  return bandsData.filter(b=>{
-    const coord=cityCoords[b.loc];
-    if(!coord) return false;
-    const city=coord.city;
-    const cs=mainScenes.includes(city)?city:"Other";
-    return cs===sceneName;
-  }).length;
-}
-
-sceneLegend.forEach(s=>{
-  const count=getSceneBandCount(s.name);
-  const rgb=hexToRgb(s.color);
-  filtersEl.innerHTML+=`<div class="scene-filter-btn" data-scene="${s.name}" style="--filter-color:${s.color};--filter-rgb:${rgb}" onclick="toggleSceneFilter('${s.name}')"><div class="scene-filter-dot" style="background:${s.color}"></div><span class="scene-filter-name">${s.name}</span><span class="scene-filter-count">${count}</span></div>`;
-});
-
-function hexToRgb(hex){
-  const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
-  return r+','+g+','+b;
-}
-
-function toggleSceneFilter(scene){
-  if(activeSceneFilter===scene){
-    activeSceneFilter=null;
-    document.querySelectorAll('.scene-filter-btn').forEach(el=>{el.classList.remove('active','dimmed')});
-  } else {
-    activeSceneFilter=scene;
-    document.querySelectorAll('.scene-filter-btn').forEach(el=>{
-      if(el.dataset.scene===scene){el.classList.add('active');el.classList.remove('dimmed')}
-      else{el.classList.remove('active');el.classList.add('dimmed')}
-    });
-  }
-  updateMap(parseInt(document.getElementById('map-year-slider').value));
-}
-
-// Build legend (small dots below controls)
+// Build legend
 const legendEl = document.getElementById('map-legend');
 sceneLegend.forEach(s=>{
   legendEl.innerHTML+=`<div class="map-legend-item"><div class="map-legend-dot" style="background:${s.color}"></div>${s.name}</div>`;
 });
+
+// Build scene filter chips
+const activeSceneFilters = new Set(); // empty = show all
+const filterChipsEl = document.getElementById('map-filter-chips');
+filterChipsEl.innerHTML = `<button class="map-filter-chip-all active" onclick="toggleSceneFilter('all')">All Scenes</button>`;
+sceneLegend.forEach(s=>{
+  filterChipsEl.innerHTML+=`<button class="map-filter-chip" data-scene="${s.name}" onclick="toggleSceneFilter('${s.name}')" style="--chip-color:${s.color}"><span class="chip-dot" style="background:${s.color}"></span>${s.name}</button>`;
+});
+
+function toggleSceneFilter(scene){
+  const allBtn = document.querySelector('.map-filter-chip-all');
+  if(scene==='all'){
+    activeSceneFilters.clear();
+    allBtn.classList.add('active');
+    document.querySelectorAll('.map-filter-chip').forEach(c=>c.classList.remove('active'));
+  }else{
+    allBtn.classList.remove('active');
+    const chip = document.querySelector(`.map-filter-chip[data-scene="${scene}"]`);
+    if(activeSceneFilters.has(scene)){
+      activeSceneFilters.delete(scene);
+      chip.classList.remove('active');
+      if(activeSceneFilters.size===0) allBtn.classList.add('active');
+    }else{
+      activeSceneFilters.add(scene);
+      chip.classList.add('active');
+      chip.style.borderColor = chip.style.getPropertyValue('--chip-color');
+    }
+  }
+  updateMap(parseInt(document.getElementById('map-year-slider').value));
+}
 
 // Initialize map
 let punkMap = null;
@@ -1351,22 +1706,24 @@ let mapPlayInterval = null;
 function initMap(){
   if(punkMap) return;
   punkMap = L.map('punk-map',{
-    center:[39.8,-98.5],
-    zoom:4,
-    minZoom:3,
-    maxZoom:7,
-    zoomControl:true,
+    center:[30,0],
+    zoom:2,
+    zoomControl:false,
     attributionControl:false,
-    maxBounds:[[-85,-180],[85,180]],
+    scrollWheelZoom:false,
+    doubleClickZoom:false,
+    dragging:true,
+    touchZoom:true,
+    minZoom:2,
+    maxZoom:7,
+    maxBounds:[[-60,-180],[75,180]],
     maxBoundsViscosity:1.0
   });
-
+  
   // Dark tile layer
   L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{
     maxZoom:7,
-    subdomains:'abcd',
-    noWrap:true,
-    bounds:[[-85,-180],[85,180]]
+    subdomains:'abcd'
   }).addTo(punkMap);
   
   // Attribution
@@ -1374,73 +1731,73 @@ function initMap(){
     .addAttribution('&copy; <a href="https://carto.com/">CARTO</a>')
     .addTo(punkMap);
   
+  // Set initial view to US
+  setMapView('us');
   updateMap(parseInt(document.getElementById('map-year-slider').value));
 }
 
-// Offset overlapping cities so markers don't stack
-const cityOffsets={"Washington DC":{lat:-0.8,lng:1.2}};
+// Preset map views
+function setMapView(region){
+  if(!punkMap) return;
+  const views = {
+    us:{center:[39,-96],zoom:4},
+    northeast:{center:[41,-74],zoom:6},
+    westcoast:{center:[35,-119],zoom:5},
+    europe:{center:[50,10],zoom:4},
+    world:{center:[30,0],zoom:2},
+    japan:{center:[36,138],zoom:5},
+    south_america:{center:[-15,-50],zoom:4}
+  };
+  const v = views[region]||views.us;
+  punkMap.flyTo(v.center,v.zoom,{duration:0.8});
+  // Update active button
+  document.querySelectorAll('.map-view-btn').forEach(b=>b.classList.remove('active'));
+  const btn = document.querySelector(`.map-view-btn[data-region="${region}"]`);
+  if(btn) btn.classList.add('active');
+}
+
+function mapZoomIn(){ if(punkMap) punkMap.zoomIn(1); }
+function mapZoomOut(){ if(punkMap) punkMap.zoomOut(1); }
 
 function updateMap(year){
   // Clear existing markers
   mapMarkers.forEach(m=>punkMap.removeLayer(m));
   mapMarkers=[];
-
+  
   // Filter bands active by this year
   const activeBands = bandsData.filter(b=>getFormYear(b)<=year);
-
-  // Group by city (with scene filter)
+  
+  // Group by city
   const cityGroups={};
   activeBands.forEach(b=>{
     const coord = cityCoords[b.loc];
     if(!coord) return;
     const key = coord.city;
-    if(activeSceneFilter){
-      const cityScene = mainScenes.includes(key) ? key : "Other";
-      if(cityScene!==activeSceneFilter) return;
+    // Apply scene filter
+    if(activeSceneFilters.size>0 && !activeSceneFilters.has(key)){
+      // Check if any legend name matches
+      const matchesFilter = sceneLegend.some(s=>s.name===key && activeSceneFilters.has(s.name));
+      if(!matchesFilter) return;
     }
     if(!cityGroups[key]) cityGroups[key]={bands:[],lat:coord.lat,lng:coord.lng,color:coord.color};
     cityGroups[key].bands.push(b);
   });
-
+  
   // Create markers
   Object.entries(cityGroups).forEach(([city,data])=>{
     const count = data.bands.length;
-    const radius = Math.max(12, Math.min(40, 8 + count*3));
-
-    // Apply offset for overlapping cities
-    const offset = cityOffsets[city]||{lat:0,lng:0};
-    const lat = data.lat + offset.lat;
-    const lng = data.lng + offset.lng;
-
-    // Outer glow ring
-    const glow = L.circleMarker([lat,lng],{
-      radius:radius+6,
-      fillColor:data.color,
-      color:'transparent',
-      weight:0,
-      fillOpacity:0.1
-    }).addTo(punkMap);
-
-    // Main circle marker
-    const marker = L.circleMarker([lat,lng],{
+    const radius = Math.max(10, Math.min(35, 8 + count*4));
+    
+    // Pulsing circle marker
+    const marker = L.circleMarker([data.lat,data.lng],{
       radius:radius,
       fillColor:data.color,
       color:data.color,
       weight:2,
       opacity:0.9,
-      fillOpacity:0.35
+      fillOpacity:0.4
     }).addTo(punkMap);
-
-    // Hover highlight
-    marker.on('mouseover',function(){
-      this.setStyle({fillOpacity:0.7,weight:3});
-      glow.setStyle({fillOpacity:0.25});
-    });
-    marker.on('mouseout',function(){
-      this.setStyle({fillOpacity:0.35,weight:2});
-      glow.setStyle({fillOpacity:0.1});
-    });
-
+    
     // Popup with clickable band names
     const bandLinks = data.bands
       .sort((a,b)=>getFormYear(a)-getFormYear(b))
@@ -1448,44 +1805,38 @@ function updateMap(year){
         const idx = bandsData.indexOf(b);
         return `<span class="popup-band" onclick="closeMapPopups();openBandModal(${idx})">${b.name} <span style="color:#888">(${b.formed})</span></span>`;
       }).join('');
-
+    
     marker.bindPopup(`
-      <div style="min-width:200px">
-        <div style="font-family:Bebas Neue,sans-serif;font-size:1.5rem;color:${data.color};letter-spacing:2px;border-bottom:1px solid #333;padding-bottom:6px;margin-bottom:6px">${city}</div>
-        <div style="font-size:.8rem;color:#888;margin-bottom:8px">${count} band${count>1?'s':''} active by ${year}</div>
+      <div style="min-width:180px">
+        <div style="font-family:Bebas Neue,sans-serif;font-size:1.4rem;color:${data.color};letter-spacing:2px">${city}</div>
+        <div style="font-size:.8rem;color:#888;margin-bottom:8px">${count} band${count>1?'s':''} by ${year}</div>
         ${bandLinks}
       </div>
-    `,{maxHeight:350,className:'punk-popup',autoPanPadding:[40,40]});
-
+    `,{maxHeight:300,className:'punk-popup'});
+    
     // City label
-    const label = L.marker([lat,lng],{
+    const label = L.marker([data.lat,data.lng],{
       icon:L.divIcon({
         className:'map-city-label',
-        html:`<div style="font-family:Bebas Neue,sans-serif;font-size:.9rem;color:${data.color};text-shadow:0 0 6px #000,1px 1px 3px #000;white-space:nowrap;text-align:center;pointer-events:none">${city}<br><span style="font-size:.8rem;color:#ccc;font-family:Space Mono,monospace">${count}</span></div>`,
-        iconSize:[100,30],
-        iconAnchor:[50,-radius-6]
+        html:`<div style="font-family:Bebas Neue,sans-serif;font-size:.85rem;color:${data.color};text-shadow:1px 1px 2px #000;white-space:nowrap;text-align:center;pointer-events:none">${city}<br><span style="font-size:.75rem;color:#aaa">${count}</span></div>`,
+        iconSize:[80,30],
+        iconAnchor:[40,-radius-4]
       })
     }).addTo(punkMap);
-
-    mapMarkers.push(glow);
+    
     mapMarkers.push(marker);
     mapMarkers.push(label);
   });
-
+  
   // Update stats
+  const filteredBandCount = Object.values(cityGroups).reduce((sum,g)=>sum+g.bands.length,0);
   document.getElementById('map-year-display').textContent=year;
-  document.getElementById('map-band-count').textContent=activeBands.length;
+  document.getElementById('map-band-count').textContent=filteredBandCount;
   document.getElementById('map-scene-count').textContent=Object.keys(cityGroups).length;
 }
 
 function closeMapPopups(){
   if(punkMap) punkMap.closePopup();
-}
-
-function jumpToYear(year){
-  const slider = document.getElementById('map-year-slider');
-  slider.value = year;
-  updateMap(year);
 }
 
 // Slider interaction
@@ -1523,30 +1874,8 @@ function toggleMapPlay(){
     }
     mapSlider.value=year;
     updateMap(year);
-  },600);
+  },800);
 }
-
-// Keyboard navigation for map slider
-document.addEventListener('keydown',e=>{
-  const panel = document.getElementById('punkmap');
-  if(!panel||!panel.classList.contains('active')) return;
-  if(e.key==='ArrowRight'||e.key==='ArrowUp'){
-    e.preventDefault();
-    const v=Math.min(1999,parseInt(mapSlider.value)+1);
-    mapSlider.value=v;
-    updateMap(v);
-  }
-  if(e.key==='ArrowLeft'||e.key==='ArrowDown'){
-    e.preventDefault();
-    const v=Math.max(1976,parseInt(mapSlider.value)-1);
-    mapSlider.value=v;
-    updateMap(v);
-  }
-  if(e.key===' '&&document.activeElement!==document.querySelector('.global-ask-input')){
-    e.preventDefault();
-    toggleMapPlay();
-  }
-});
 
 // Initialize map when the Map tab is shown
 const origTabHandler = document.querySelectorAll('.nav button');
