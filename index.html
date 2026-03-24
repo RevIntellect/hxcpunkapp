@@ -524,7 +524,6 @@ pointer-events:none;z-index:1}
 <div class="map-stat">Bands active by <strong id="map-band-count">0</strong></div>
 <div class="map-stat">Scenes lit: <strong id="map-scene-count">0</strong></div>
 </div>
-<div class="map-legend" id="map-legend"></div>
 <div class="map-scene-filters">
 <div class="map-filter-label">Filter by Scene:</div>
 <div class="map-filter-chips" id="map-filter-chips"></div>
@@ -1661,12 +1660,6 @@ const sceneLegend = [
   {color:"#33aa33",name:"Brazil"},
   {color:"#cc5555",name:"Other"}
 ];
-
-// Build legend
-const legendEl = document.getElementById('map-legend');
-sceneLegend.forEach(s=>{
-  legendEl.innerHTML+=`<div class="map-legend-item"><div class="map-legend-dot" style="background:${s.color}"></div>${s.name}</div>`;
-});
 
 // Build scene filter chips
 const activeSceneFilters = new Set(); // empty = show all
