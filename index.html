@@ -204,21 +204,7 @@ pointer-events:none;z-index:1}
 .related-chip:hover{background:rgba(196,30,30,.3);border-color:var(--red)}
 .related-chip.clickable{cursor:pointer}
 .modal-band-loc{font-size:.95rem;color:#aaa;margin-top:2px}
-/* AI RESEARCH */
-.ai-section{margin-top:20px;padding-top:16px;border-top:1px solid #222}
-.ai-buttons{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-.ai-btn{background:rgba(30,80,30,.15);border:1px solid rgba(40,120,40,.4);color:#6aba6a;padding:8px 16px;font-size:.9rem;cursor:pointer;font-family:'Space Mono',monospace;transition:all .2s;display:inline-flex;align-items:center;gap:6px}
-.ai-btn:hover{background:rgba(40,120,40,.25);border-color:#6aba6a;color:#8fdf8f}
-.ai-btn:disabled{opacity:.5;cursor:wait}
-.ai-btn .ai-icon{font-size:1.1rem}
-.ai-result{margin-top:14px;padding:16px;background:rgba(20,30,20,.5);border:1px solid rgba(40,120,40,.2);font-size:.95rem;line-height:1.7;color:#ccc;white-space:pre-wrap;display:none;max-height:500px;overflow-y:auto}
-.ai-result.visible{display:block;animation:fadeIn .4s ease}
-.ai-result h3{font-family:'Oswald',sans-serif;color:var(--yellow);font-size:1.05rem;margin:12px 0 6px;text-transform:uppercase;letter-spacing:1px}
-.ai-result p{margin-bottom:10px}
-.ai-loading{display:inline-flex;align-items:center;gap:8px;color:#6aba6a;font-size:.9rem;margin-top:10px}
-.ai-loading .spinner{width:16px;height:16px;border:2px solid rgba(106,186,106,.3);border-top-color:#6aba6a;border-radius:50%;animation:spin .8s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.ai-badge{font-size:.7rem;color:#555;margin-top:8px;font-style:italic}
+
 
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:200;overflow-y:auto;backdrop-filter:blur(4px)}
 .modal-overlay.open{display:flex;justify-content:center;align-items:flex-start;padding:40px 16px}
@@ -246,28 +232,7 @@ pointer-events:none;z-index:1}
 .band-entry{cursor:pointer}
 
 
-/* AI RESEARCH */
-.ai-section{margin-top:20px;padding-top:16px;border-top:1px solid #222}
-.ai-buttons{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-.ai-btn{background:rgba(30,80,30,.15);border:1px solid rgba(30,180,30,.3);color:#4a9;padding:8px 16px;font-size:.9rem;cursor:pointer;font-family:'Space Mono',monospace;transition:all .2s;display:inline-flex;align-items:center;gap:6px}
-.ai-btn:hover{background:rgba(30,180,30,.2);border-color:#4a9;color:#6fc}
-.ai-btn:disabled{opacity:.5;cursor:wait}
-.ai-btn .ai-icon{font-size:1.1rem}
-.ai-result{margin-top:14px;padding:16px;background:rgba(20,40,20,.3);border:1px solid rgba(30,180,30,.2);font-size:.95rem;color:#ccc;line-height:1.7;white-space:pre-wrap;display:none;max-height:500px;overflow-y:auto}
-.ai-result.visible{display:block}
-.ai-result .ai-label{font-family:'Oswald',sans-serif;font-size:.85rem;color:#4a9;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px;display:block}
-.ai-loading{display:inline-block;width:16px;height:16px;border:2px solid #4a9;border-top-color:transparent;border-radius:50%;animation:aispin .6s linear infinite}
-@keyframes aispin{to{transform:rotate(360deg)}}
-.ask-bar{display:flex;gap:8px;margin-top:10px}
-.ask-bar input{flex:1;background:#1a1a1a;border:1px solid #333;color:var(--white);font-family:'Space Mono',monospace;font-size:.95rem;padding:10px 14px}
-.ask-bar input:focus{outline:none;border-color:#4a9}
-.ask-bar button{background:rgba(30,80,30,.2);border:1px solid rgba(30,180,30,.3);color:#4a9;padding:10px 16px;font-size:.9rem;cursor:pointer;font-family:'Space Mono',monospace;white-space:nowrap}
-.ask-bar button:hover{background:rgba(30,180,30,.2);border-color:#4a9}
-/* GLOBAL ASK */
-.global-ask{max-width:1200px;margin:0 auto;padding:0 28px}
-.global-ask-box{background:rgba(20,40,20,.2);border:1px solid rgba(30,180,30,.15);padding:20px;margin-bottom:20px}
-.global-ask-title{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:#4a9;letter-spacing:2px}
-.global-ask-sub{font-size:.85rem;color:#777;margin-top:4px}
+
 
 /* INTERACTIVE MAP */
 .map-container{position:relative}
@@ -438,9 +403,7 @@ pointer-events:none;z-index:1}
 .disc-embed iframe{height:120px!important}
 .related-grid{gap:5px}
 .related-chip{font-size:.8rem;padding:5px 10px}
-.ai-section{margin-top:16px}
-.ai-buttons{gap:6px}
-.ai-btn{font-size:.8rem;padding:6px 12px}
+
 }
 
 /* Extra small screens */
@@ -507,7 +470,6 @@ pointer-events:none;z-index:1}
 <button data-tab="subgenres">Subgenres</button>
 <button data-tab="albums">Albums</button>
 <button data-tab="stats">By the Numbers</button>
-<button data-tab="askscene">Ask the Scene</button>
 </nav>
 
 <!-- INTERACTIVE MAP -->
@@ -602,19 +564,6 @@ pointer-events:none;z-index:1}
 </div>
 
 
-<!-- ASK THE SCENE -->
-<div class="panel" id="askscene">
-<h2 class="section-head">Ask the Scene</h2>
-<div class="global-ask-box">
-<div class="global-ask-title">AI-Powered Hardcore Punk Research</div>
-<div class="global-ask-sub">Ask anything about hardcore punk history, bands, scenes, rivalries, subgenres, or culture. Powered by Claude.</div>
-<div class="ask-bar" style="margin-top:14px">
-<input type="text" id="global-ask-input" placeholder="e.g. What was Revolution Summer in DC?">
-<button onclick="globalAsk()">Research</button>
-</div>
-<div class="ai-result" id="global-ask-result"></div>
-</div>
-</div>
 
 <div class="modal-overlay" id="modal-overlay">
 <div class="modal" id="modal-content"></div>
@@ -631,7 +580,7 @@ pointer-events:none;z-index:1}
 <line x1="360" y1="2" x2="340" y2="18" stroke="#c41e1e" stroke-width="2"/>
 <line x1="370" y1="10" x2="600" y2="10" stroke="#c41e1e" stroke-width="1"/>
 </svg>
-No gods, no masters, no major labels &bull; Built with DIY ethics and raw HTML &bull; AI research by Claude
+No gods, no masters, no major labels &bull; Built with DIY ethics and raw HTML
 </div>
 
 <script>
@@ -1305,17 +1254,6 @@ html+=`<div class="disc-links"><a class="sp" href="https://open.spotify.com/sear
 html+=`</div>`;
 });
 
-// AI Research
-html+=`<div class="ai-section"><div class="modal-section">&#9889; AI Research</div>`;
-html+=`<div style="font-size:.9rem;color:#888;margin-bottom:10px">Powered by Claude. Click a button to generate deep research on this band.</div>`;
-html+=`<div class="ai-buttons">`;
-html+=`<button class="ai-btn" onclick="aiResearch('${b.name.replace(/'/g,"\\'")}','biography',this)"><span class="ai-icon">&#9998;</span> Biography</button>`;
-html+=`<button class="ai-btn" onclick="aiResearch('${b.name.replace(/'/g,"\\'")}','stories',this)"><span class="ai-icon">&#9733;</span> Wild Stories</button>`;
-html+=`<button class="ai-btn" onclick="aiResearch('${b.name.replace(/'/g,"\\'")}','scene_context',this)"><span class="ai-icon">&#9673;</span> Scene Context</button>`;
-html+=`<button class="ai-btn" onclick="aiResearch('${b.name.replace(/'/g,"\\'")}','deep_dive',this)"><span class="ai-icon">&#9776;</span> Deep Dive</button>`;
-html+=`</div>`;
-html+=`<div class="ai-result" id="ai-result-${idx}"></div>`;
-html+=`</div>`;
 
 // Related bands
 if(related.length){
@@ -1331,72 +1269,12 @@ html+=`<span class="related-chip" onclick="window.open('https://open.spotify.com
 html+=`</div></div>`;
 }
 
-// AI Research section
-html+=`<div class="ai-section"><div class="modal-section">AI Research</div>`;
-html+=`<div class="ai-buttons">`;
-html+=`<button class="ai-btn" onclick="aiResearch(${idx},'biography')"><span class="ai-icon">&#9998;</span> Biography</button>`;
-html+=`<button class="ai-btn" onclick="aiResearch(${idx},'deep_dive')"><span class="ai-icon">&#128269;</span> Deep Dive</button>`;
-html+=`<button class="ai-btn" onclick="aiResearch(${idx},'scene_context')"><span class="ai-icon">&#127961;</span> Scene Context</button>`;
-html+=`</div>`;
-html+=`<div class="ask-bar"><input type="text" id="band-ask-input" placeholder="Ask about ${b.name}..."><button onclick="aiResearch(${idx},'ask')">Ask</button></div>`;
-html+=`<div class="ai-result" id="ai-result-area"></div>`;
-html+=`</div>`;
 
 modalEl.innerHTML=html;
 overlay.classList.add('open');
 overlay.scrollTop=0;
 }
 
-// AI RESEARCH FUNCTION
-async function aiResearch(band, action, btn) {
-  const resultEl = document.querySelector('.ai-result:last-of-type') || 
-    btn.closest('.ai-section').querySelector('.ai-result');
-  
-  // Show loading
-  btn.disabled = true;
-  const origText = btn.innerHTML;
-  btn.innerHTML = '<span class="spinner" style="width:14px;height:14px;border:2px solid rgba(106,186,106,.3);border-top-color:#6aba6a;border-radius:50%;animation:spin .8s linear infinite;display:inline-block"></span> Researching...';
-  
-  resultEl.classList.add('visible');
-  resultEl.innerHTML = '<div class="ai-loading"><div class="spinner"></div> Claude is researching ' + band + '...</div>';
-
-  try {
-    const response = await fetch('/api/research', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ band, action })
-    });
-
-    if (!response.ok) {
-      const err = await response.json();
-      throw new Error(err.error || 'API request failed');
-    }
-
-    const data = await response.json();
-    
-    // Format the result with basic markdown-like conversion
-    let formatted = data.result
-      .replace(/\n\n/g, '</p><p>')
-      .replace(/\n/g, '<br>')
-      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-      .replace(/\*(.+?)\*/g, '<em>$1</em>')
-      .replace(/^## (.+)$/gm, '<h3>$1</h3>')
-      .replace(/^### (.+)$/gm, '<h3>$1</h3>')
-      .replace(/^- (.+)$/gm, '&bull; $1<br>');
-    
-    resultEl.innerHTML = '<p>' + formatted + '</p><div class="ai-badge">Generated by Claude (claude-sonnet-4-20250514)</div>';
-
-  } catch (err) {
-    resultEl.innerHTML = '<div style="color:var(--red)">' + 
-      (err.message.includes('API key') ? 
-        'Backend not configured yet. To enable AI research:<br>1. Deploy to Vercel<br>2. Add ANTHROPIC_API_KEY in Project Settings > Environment Variables<br>3. Redeploy' :
-        'Error: ' + err.message) + 
-      '</div>';
-  }
-
-  btn.disabled = false;
-  btn.innerHTML = origText;
-}
 
 // RENDER SUBGENRES
 const sgC=document.getElementById('subgenre-container');
@@ -1486,85 +1364,6 @@ setTimeout(()=>{bar.style.width=bar.dataset.target+'%'},100);
 }
 
 
-// AI RESEARCH FUNCTIONS
-async function aiResearch(idx, action) {
-  const b = bandsData[idx];
-  const resultEl = document.getElementById('ai-result-area');
-  const query = action === 'ask' ? document.getElementById('band-ask-input')?.value : '';
-
-  if (action === 'ask' && !query) {
-    resultEl.innerHTML = '<span class="ai-label">Type a question first</span>';
-    resultEl.classList.add('visible');
-    return;
-  }
-
-  // Show loading
-  resultEl.innerHTML = `<span class="ai-label"><span class="ai-loading"></span> Researching ${b.name}...</span>`;
-  resultEl.classList.add('visible');
-
-  // Disable buttons
-  document.querySelectorAll('.ai-btn').forEach(btn => btn.disabled = true);
-
-  try {
-    const resp = await fetch('/api/research', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action, bandName: b.name, query })
-    });
-
-    if (!resp.ok) {
-      const err = await resp.json().catch(() => ({ error: 'Network error' }));
-      throw new Error(err.error || `HTTP ${resp.status}`);
-    }
-
-    const data = await resp.json();
-    const labels = {
-      biography: 'Biography',
-      deep_dive: 'Deep Dive',
-      scene_context: 'Scene Context',
-      ask: 'Research'
-    };
-    resultEl.innerHTML = `<span class="ai-label">${labels[action] || 'Result'}</span>${data.result}`;
-  } catch (err) {
-    resultEl.innerHTML = `<span class="ai-label">Error</span>${err.message}\n\nMake sure ANTHROPIC_API_KEY is set in your Vercel environment variables.`;
-  }
-
-  document.querySelectorAll('.ai-btn').forEach(btn => btn.disabled = false);
-}
-
-async function globalAsk() {
-  const input = document.getElementById('global-ask-input');
-  const resultEl = document.getElementById('global-ask-result');
-  const query = input.value.trim();
-
-  if (!query) return;
-
-  resultEl.innerHTML = `<span class="ai-label"><span class="ai-loading"></span> Researching...</span>`;
-  resultEl.classList.add('visible');
-
-  try {
-    const resp = await fetch('/api/research', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: 'ask', bandName: '', query })
-    });
-
-    if (!resp.ok) {
-      const err = await resp.json().catch(() => ({ error: 'Network error' }));
-      throw new Error(err.error || `HTTP ${resp.status}`);
-    }
-
-    const data = await resp.json();
-    resultEl.innerHTML = `<span class="ai-label">Research Result</span>${data.result}`;
-  } catch (err) {
-    resultEl.innerHTML = `<span class="ai-label">Error</span>${err.message}\n\nMake sure ANTHROPIC_API_KEY is set in your Vercel environment variables.`;
-  }
-}
-
-// Allow Enter key for ask inputs
-document.addEventListener('keydown', e => {
-  if (e.key === 'Enter' && e.target.id === 'global-ask-input') globalAsk();
-});
 
 // ==========================================
 // INTERACTIVE MAP WITH TIMELINE
