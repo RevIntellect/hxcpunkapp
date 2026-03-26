@@ -933,7 +933,7 @@ const bandsData=[
 {title:"Gomorrah's Season Ends",year:1996,spotify:"6h0mY1vJF3w3xkGvZ3dSB8",apple:"gomorrahs-season-ends/1440846843",yt:""}
 ]},
 {name:"Integrity",scene:"Cleveland",era:"90s",formed:"1988",loc:"Cleveland, OH",album:"Those Who Fear Tomorrow (1991)",tags:["metalcore pioneer","holy terror"],discog:[
-{title:"Those Who Fear Tomorrow",year:1991,spotify:"3Py8RRDS78lJ4b6bfCGZa0",apple:"those-who-fear-tomorrow/1443510155",yt:"7kR2puKPCTQ"},
+{title:"Those Who Fear Tomorrow",year:1991,spotify:"707Rj1bdgVUPWzLR9EyA2G",apple:"those-who-fear-tomorrow/1443510155",yt:"7kR2puKPCTQ"},
 {title:"Systems Overload",year:1995,spotify:"6bFv4qMGKkVNsOd5Fv7vYr",apple:"systems-overload/1443510328",yt:""},
 {title:"Humanity Is the Devil",year:1996,spotify:"7GMW4GYhqX4v4jFn5TXRRD",apple:"humanity-is-the-devil/1443510498",yt:""},
 {title:"Seasons in the Size of Days",year:1997,spotify:"",apple:"",yt:""}
@@ -1243,7 +1243,7 @@ if(sc!=='all'&&b.scene!==sc)return false;
 if(er!=='all'&&b.era!==er)return false;
 if(q&&!b.name.toLowerCase().includes(q)&&!b.tags.some(t=>t.toLowerCase().includes(q)))return false;
 return true;
-});
+}).sort((a,b)=>a.name.localeCompare(b.name));
 const c=document.getElementById('bands-container');
 c.innerHTML='';
 filtered.forEach((b,idx)=>{
